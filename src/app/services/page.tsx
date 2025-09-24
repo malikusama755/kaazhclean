@@ -18,7 +18,7 @@ export default function ServicesPage() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-16">
       <h1 className="text-3xl md:text-4xl font-semibold mb-6">Our Services</h1>
-      <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
+      <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 md:grid-cols-3">
         {services.map((s) => (
           <Link
             key={s.slug}

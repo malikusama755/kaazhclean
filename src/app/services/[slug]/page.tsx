@@ -34,9 +34,9 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   const data = serviceCopy[slug];
   if (!data) return notFound();
   return (
-    <div className="mx-auto max-w-6xl px-4 py-16">
-      <h1 className="text-3xl md:text-4xl font-semibold mb-4">{data.title}</h1>
-      <p className="text-neutral-700 max-w-3xl mb-8">{data.body}</p>
+    <div className="mx-auto max-w-6xl px-4 py-12 md:py-16">
+      <h1 className="text-2xl md:text-4xl font-semibold mb-3 md:mb-4">{data.title}</h1>
+      <p className="text-neutral-700 max-w-3xl mb-6 md:mb-8 text-sm md:text-base">{data.body}</p>
       <div className="aspect-video relative rounded overflow-hidden mb-6">
         <Image
           src={
@@ -53,7 +53,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           priority
         />
       </div>
-      <a href="/quick-quote" className="inline-flex items-center rounded bg-neutral-900 text-white px-5 py-3 font-medium hover:bg-neutral-800">Request a Quick Quote</a>
+      <a href="/quick-quote" className="inline-flex items-center rounded bg-neutral-900 text-white px-5 py-3 font-medium hover:bg-neutral-800 w-full sm:w-auto justify-center">Request a Quick Quote</a>
     </div>
   );
 }

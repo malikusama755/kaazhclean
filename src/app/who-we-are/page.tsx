@@ -6,10 +6,10 @@ export const metadata = {
 
 export default function WhoWeArePage() {
   return (
-    <div className="mx-auto max-w-6xl px-4 py-16"> 
-      <h1 className="text-3xl md:text-4xl font-semibold mb-4">Who We Are</h1>
-      <div className="grid gap-8 md:grid-cols-5 md:items-start">
-        <p className="text-neutral-700 max-w-3xl md:col-span-3">
+    <div className="mx-auto max-w-6xl px-4 py-12 md:py-16"> 
+      <h1 className="text-2xl md:text-4xl font-semibold mb-3 md:mb-4">Who We Are</h1>
+      <div className="grid gap-6 md:gap-8 md:grid-cols-5 md:items-start">
+        <p className="text-neutral-700 max-w-3xl md:col-span-3 text-sm md:text-base">
           KAAZHSCLEAN provides reliable, detail-focused cleaning services throughout London. Our trained
           operatives deliver consistent quality across residential and commercial spaces. We believe in doing it
           right the first time and every time.

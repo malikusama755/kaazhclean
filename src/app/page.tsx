@@ -5,19 +5,19 @@ export default function Home() {
   return (
     <div className="">
       <section className="bg-neutral-900 text-white">
-        <div className="mx-auto max-w-6xl px-4 py-16 md:py-24 grid gap-8 md:grid-cols-2 md:items-center">
-          <div className="space-y-5">
-            <h1 className="text-3xl md:text-5xl font-semibold leading-tight">
+        <div className="mx-auto max-w-6xl px-4 py-12 md:py-24 grid gap-6 md:gap-8 md:grid-cols-2 md:items-center">
+          <div className="space-y-4">
+            <h1 className="text-2xl sm:text-3xl md:text-5xl font-semibold leading-tight">
               We clean corners. We don’t cut them.
             </h1>
-            <p className="text-neutral-200">
+            <p className="text-neutral-200 text-sm md:text-base">
               Experience a service where every detail matters. Professional cleaning services across London.
             </p>
-            <div className="flex gap-3">
-              <Link href="/quick-quote" className="inline-flex items-center rounded bg-white text-neutral-900 px-5 py-3 font-medium hover:bg-neutral-100">Get Started</Link>
-              <Link href="/services" className="inline-flex items-center rounded border border-white/30 px-5 py-3 font-medium hover:bg-white/10">Our Services</Link>
-              <a href="tel:00923326666788" className="inline-flex items-center rounded border border-white/30 px-5 py-3 font-medium hover:bg-white/10">Call</a>
-              <a href="mailto:hikaazhsclean@gmail.com" className="inline-flex items-center rounded border border-white/30 px-5 py-3 font-medium hover:bg-white/10">Email</a>
+            <div className="flex flex-wrap gap-2 sm:gap-3">
+              <Link href="/quick-quote" className="inline-flex items-center rounded bg-white text-neutral-900 px-4 sm:px-5 py-2.5 sm:py-3 font-medium hover:bg-neutral-100 w-full sm:w-auto justify-center">Get Started</Link>
+              <Link href="/services" className="inline-flex items-center rounded border border-white/30 px-4 sm:px-5 py-2.5 sm:py-3 font-medium hover:bg-white/10 w-full sm:w-auto justify-center">Our Services</Link>
+              <a href="tel:00923326666788" className="inline-flex items-center rounded border border-white/30 px-4 sm:px-5 py-2.5 sm:py-3 font-medium hover:bg-white/10 w-full sm:w-auto justify-center">Call</a>
+              <a href="mailto:hikaazhsclean@gmail.com" className="inline-flex items-center rounded border border-white/30 px-4 sm:px-5 py-2.5 sm:py-3 font-medium hover:bg-white/10 w-full sm:w-auto justify-center">Email</a>
             </div>
           </div>
           <div className="relative aspect-[4/3] w-full rounded-lg overflow-hidden bg-neutral-800">

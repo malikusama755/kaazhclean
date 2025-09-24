@@ -57,8 +57,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-neutral-900`}>
-        <header className="sticky top-0 z-50 border-b border-neutral-200 bg-white/90 backdrop-blur">
-          <div className="mx-auto max-w-6xl px-4 py-2 md:py-2.5 flex items-center justify-between relative">
+        <header className="sticky top-0 z-50 border-b border-neutral-200 bg-white/95 backdrop-blur">
+          <div className="mx-auto max-w-6xl px-4 py-3 md:py-4 flex items-center justify-between relative">
             <Link href="/" className="flex items-center gap-3">
               <Image
                 src="/logo.png"
@@ -86,8 +86,8 @@ export default function RootLayout({
           {/* Mobile menu overlay handled by MobileNav */}
         </header>
         <main>{children}</main>
-        <footer className="mt-16 border-t border-neutral-200">
-          <div className="mx-auto max-w-6xl px-4 py-12 grid gap-10 md:grid-cols-3 text-sm">
+        <footer className="mt-12 md:mt-16 border-t border-neutral-200">
+          <div className="mx-auto max-w-6xl px-4 py-8 md:py-12 grid gap-8 md:gap-10 md:grid-cols-3 text-sm">
             <div className="space-y-2">
               <div className="font-semibold">KAAZHSCLEAN</div>
               <div>10 Wood St, London E17 3HT</div>
@@ -116,10 +116,10 @@ export default function RootLayout({
             </div>
             <div>
               <div className="font-semibold mb-3">Quick Quote</div>
-              <form action="mailto:hikaazhsclean@gmail.com" method="post" encType="text/plain" className="grid gap-2">
-                <input name="name" placeholder="Your Name" className="border border-neutral-300 rounded px-3 py-2" required />
-                <input name="email" type="email" placeholder="Your Email" className="border border-neutral-300 rounded px-3 py-2" required />
-                <select name="service" className="border border-neutral-300 rounded px-3 py-2">
+              <form action="mailto:hikaazhsclean@gmail.com" method="post" encType="text/plain" className="grid gap-2 sm:gap-2.5">
+                <input name="name" placeholder="Your Name" className="w-full border border-neutral-300 rounded px-3 py-2 text-sm" required />
+                <input name="email" type="email" placeholder="Your Email" className="w-full border border-neutral-300 rounded px-3 py-2 text-sm" required />
+                <select name="service" className="w-full border border-neutral-300 rounded px-3 py-2 text-sm">
                   <option>End Of Tenancy Cleaning</option>
                   <option>After Builders Cleaning</option>
                   <option>Deep Cleaning</option>
@@ -127,11 +127,11 @@ export default function RootLayout({
                   <option>Office/Commercial Cleaning</option>
                   <option>Other</option>
                 </select>
-                <button type="submit" className="inline-flex items-center rounded bg-neutral-900 text-white px-4 py-2 font-medium hover:bg-neutral-800">Send</button>
+                <button type="submit" className="inline-flex items-center rounded bg-neutral-900 text-white px-4 py-2 font-medium hover:bg-neutral-800 w-full sm:w-auto justify-center">Send</button>
               </form>
             </div>
           </div>
-          <div className="text-center text-xs text-neutral-500 pb-6">© {new Date().getFullYear()} KAAZHSCLEAN.</div>
+          <div className="text-center text-xs text-neutral-500 pb-4 md:pb-6">© {new Date().getFullYear()} KAAZHSCLEAN.</div>
         </footer>
         <CookieBanner />
       </body>
