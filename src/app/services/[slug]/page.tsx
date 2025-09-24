@@ -40,11 +40,11 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       <div className="aspect-video relative rounded overflow-hidden mb-6">
         <Image
           src={
-            params.slug === "end-of-tenancy-cleaning" ? "/images/end-of-tenancy.jpg" :
-            params.slug === "after-builders-cleaning" ? "/images/after-builders.jpg" :
-            params.slug === "deep-cleaning" ? "/images/deep-cleaning.jpg" :
-            params.slug === "residential-cleaning" ? "/images/residential-cleaning.jpg" :
-            params.slug === "office-commercial-cleaning" ? "/images/office-cleaning.jpg" :
+            slug === "end-of-tenancy-cleaning" ? "/images/end-of-tenancy.jpg" :
+            slug === "after-builders-cleaning" ? "/images/after-builders.jpg" :
+            slug === "deep-cleaning" ? "/images/deep-cleaning.jpg" :
+            slug === "residential-cleaning" ? "/images/residential-cleaning.jpg" :
+            slug === "office-commercial-cleaning" ? "/images/office-cleaning.jpg" :
             "/images/equipment.jpg.jpg"
           }
           alt={data.title}
