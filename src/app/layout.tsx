@@ -58,7 +58,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-neutral-900`}>
         <header className="sticky top-0 z-50 border-b border-neutral-200 bg-white/95 backdrop-blur">
-          <div className="mx-auto max-w-6xl px-4 py-3 md:py-4 flex items-center justify-between relative">
+          <div className="mx-auto max-w-6xl px-4 py-3 md:py-4 flex items-center justify-between relative text-neutral-900">
             <Link href="/" className="flex items-center gap-3">
               <Image
                 src="/logo.png"
