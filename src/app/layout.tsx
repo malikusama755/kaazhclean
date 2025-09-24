@@ -57,16 +57,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-neutral-900`}>
-        <header className="sticky top-0 z-50 border-b border-neutral-200 bg-white/95 backdrop-blur">
+        <header className="sticky top-0 z-50 border-b border-neutral-200 bg-white">
           <div className="mx-auto max-w-6xl px-4 py-3 md:py-4 flex items-center justify-between relative text-neutral-900">
             <Link href="/" className="flex items-center gap-3">
               <Image
                 src="/logo.png"
                 alt="KAAZHSCLEAN"
-                width={224}
-                height={224}
+                width={256}
+                height={256}
                 priority
-                className="h-16 w-16 md:h-20 md:w-20 lg:h-24 lg:w-24 object-contain"
+                className="h-18 w-18 md:h-22 md:w-22 lg:h-24 lg:w-24 object-contain"
               />
               {/* Site name hidden per request */}
             </Link>
