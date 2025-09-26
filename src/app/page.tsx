@@ -98,6 +98,179 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Services Carousel Section */}
+      <section className="bg-white">
+        <div className="mx-auto max-w-6xl px-4 py-16">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Services in London</h2>
+            <p className="text-lg text-neutral-600">Professional cleaning services tailored to your needs</p>
+          </div>
+          
+          {/* Mobile Horizontal Scroll, Desktop Grid */}
+          <div className="flex gap-4 overflow-x-auto pb-4 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-6 md:overflow-visible md:pb-0">
+            {/* Service Card 1 - Domestic Cleaning */}
+            <div className="flex-shrink-0 w-80 md:w-auto bg-white rounded-lg shadow-lg border border-neutral-200 overflow-hidden hover:shadow-xl transition-shadow">
+              <div className="aspect-video relative">
+                <Image
+                  src="/images/residential-cleaning.jpg"
+                  alt="Domestic cleaning service"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="p-4 md:p-6">
+                <h3 className="text-xl md:text-2xl font-bold text-blue-600 mb-2">Domestic Cleaning</h3>
+                <div className="text-lg md:text-xl font-semibold text-blue-600 mb-3 md:mb-4">from £18/h</div>
+                <p className="text-sm md:text-base text-neutral-600 mb-3 md:mb-4">
+                  KAAZHSCLEAN provides either one-off home cleaning or regular domestic packages. With our service, you can enjoy all the benefits of professional cleaners while paying a fair price to get a spotless home.
+                </p>
+                <Link href="/services/residential-cleaning" className="inline-flex items-center text-blue-600 font-medium hover:underline text-sm md:text-base">
+                  Learn More
+                  <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+
+            {/* Service Card 2 - End of Tenancy */}
+            <div className="flex-shrink-0 w-80 md:w-auto bg-white rounded-lg shadow-lg border border-neutral-200 overflow-hidden hover:shadow-xl transition-shadow">
+              <div className="aspect-video relative">
+                <Image
+                  src="/images/end-of-tenancy.jpg"
+                  alt="End of tenancy cleaning"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="p-4 md:p-6">
+                <h3 className="text-xl md:text-2xl font-bold text-blue-600 mb-2">End of Tenancy</h3>
+                <div className="text-lg md:text-xl font-semibold text-blue-600 mb-3 md:mb-4">from £25/h</div>
+                <p className="text-sm md:text-base text-neutral-600 mb-3 md:mb-4">
+                  Comprehensive end of tenancy cleaning to ensure you get your full deposit back. We eliminate dust and use chemical solutions to remove discoloration and stains that can be in your property.
+                </p>
+                <Link href="/services/end-of-tenancy-cleaning" className="inline-flex items-center text-blue-600 font-medium hover:underline text-sm md:text-base">
+                  Learn More
+                  <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+
+            {/* Service Card 3 - Office Cleaning */}
+            <div className="flex-shrink-0 w-80 md:w-auto bg-white rounded-lg shadow-lg border border-neutral-200 overflow-hidden hover:shadow-xl transition-shadow">
+              <div className="aspect-video relative">
+                <Image
+                  src="/images/office-cleaning.jpg"
+                  alt="Office cleaning service"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="p-4 md:p-6">
+                <h3 className="text-xl md:text-2xl font-bold text-blue-600 mb-2">Office Cleaning</h3>
+                <div className="text-lg md:text-xl font-semibold text-blue-600 mb-3 md:mb-4">from £20/h</div>
+                <p className="text-sm md:text-base text-neutral-600 mb-3 md:mb-4">
+                  Professional office and commercial cleaning services. We maintain clean, healthy workspaces that boost productivity and create a positive impression for your clients and employees.
+                </p>
+                <Link href="/services/office-commercial-cleaning" className="inline-flex items-center text-blue-600 font-medium hover:underline text-sm md:text-base">
+                  Learn More
+                  <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+
+            {/* Service Card 4 - Deep Cleaning */}
+            <div className="flex-shrink-0 w-80 md:w-auto bg-white rounded-lg shadow-lg border border-neutral-200 overflow-hidden hover:shadow-xl transition-shadow">
+              <div className="aspect-video relative">
+                <Image
+                  src="/images/deep-cleaning.jpg"
+                  alt="Deep cleaning service"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="p-4 md:p-6">
+                <h3 className="text-xl md:text-2xl font-bold text-blue-600 mb-2">Deep Cleaning</h3>
+                <div className="text-lg md:text-xl font-semibold text-blue-600 mb-3 md:mb-4">from £22/h</div>
+                <p className="text-sm md:text-base text-neutral-600 mb-3 md:mb-4">
+                  Intensive deep cleaning service for homes that need extra attention. We tackle every corner, surface, and hidden area to give your property a thorough, professional clean.
+                </p>
+                <Link href="/services/deep-cleaning" className="inline-flex items-center text-blue-600 font-medium hover:underline text-sm md:text-base">
+                  Learn More
+                  <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+
+            {/* Service Card 5 - After Builders */}
+            <div className="flex-shrink-0 w-80 md:w-auto bg-white rounded-lg shadow-lg border border-neutral-200 overflow-hidden hover:shadow-xl transition-shadow">
+              <div className="aspect-video relative">
+                <Image
+                  src="/images/after-builders.jpg"
+                  alt="After builders cleaning"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="p-4 md:p-6">
+                <h3 className="text-xl md:text-2xl font-bold text-blue-600 mb-2">After Builders</h3>
+                <div className="text-lg md:text-xl font-semibold text-blue-600 mb-3 md:mb-4">from £24/h</div>
+                <p className="text-sm md:text-base text-neutral-600 mb-3 md:mb-4">
+                  Specialized cleaning after construction or renovation work. We remove all construction dust, debris, and residue to make your property move-in ready.
+                </p>
+                <Link href="/services/after-builders-cleaning" className="inline-flex items-center text-blue-600 font-medium hover:underline text-sm md:text-base">
+                  Learn More
+                  <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+
+            {/* Service Card 6 - Last Minute Cleaning */}
+            <div className="flex-shrink-0 w-80 md:w-auto bg-white rounded-lg shadow-lg border border-neutral-200 overflow-hidden hover:shadow-xl transition-shadow">
+              <div className="aspect-video relative">
+                <Image
+                  src="/images/last minute cleaning.jpg"
+                  alt="Last minute cleaning service"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="p-4 md:p-6">
+                <h3 className="text-xl md:text-2xl font-bold text-blue-600 mb-2">Last Minute Cleaning</h3>
+                <div className="text-lg md:text-xl font-semibold text-blue-600 mb-3 md:mb-4">from £30/h</div>
+                <p className="text-sm md:text-base text-neutral-600 mb-3 md:mb-4">
+                  Need cleaning urgently? Our last minute cleaning service is available for same-day bookings. Perfect for unexpected guests, property viewings, or emergency cleaning needs.
+                </p>
+                <Link href="/services/last-minute-cleaning" className="inline-flex items-center text-blue-600 font-medium hover:underline text-sm md:text-base">
+                  Learn More
+                  <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* View All Services Link */}
+          <div className="text-center mt-8">
+            <Link href="/services" className="inline-flex items-center text-blue-600 font-medium hover:underline">
+              View All Services
+              <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Reviews Section */}
       <section className="bg-neutral-50">
         <div className="mx-auto max-w-6xl px-4 py-16">
