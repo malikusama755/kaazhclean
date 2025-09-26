@@ -17,7 +17,7 @@ export default function LastMinuteCleaningPage() {
             Need cleaning urgently? Our last minute cleaning service is available for same-day bookings. Perfect for unexpected guests, property viewings, or emergency cleaning needs.
           </p>
           <div className="space-y-4">
-            <h2 className="text-xl font-semibold">What's Included</h2>
+            <h2 className="text-xl font-semibold">What&rsquo;s Included</h2>
             <ul className="space-y-2 text-neutral-600">
               <li className="flex items-start gap-2">
                 <svg className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">

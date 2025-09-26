@@ -149,7 +149,7 @@ export default function ReviewsPage() {
             </div>
             
             <p className="text-neutral-700 text-sm leading-relaxed">
-              "{review.review}"
+              &ldquo;{review.review}&rdquo;
             </p>
           </div>
         ))}

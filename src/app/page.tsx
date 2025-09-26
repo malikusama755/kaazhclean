@@ -282,9 +282,9 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <p className="text-neutral-700 text-sm leading-relaxed">
-                "Exceptional end of tenancy cleaning service. The team was punctual, thorough, and left our flat spotless. Highly recommend KAAZHSCLEAN for their attention to detail."
-              </p>
+                <p className="text-neutral-700 text-sm leading-relaxed">
+                  &ldquo;Exceptional end of tenancy cleaning service. The team was punctual, thorough, and left our flat spotless. Highly recommend KAAZHSCLEAN for their attention to detail.&rdquo;
+                </p>
             </div>
 
             {/* Review 2 */}
@@ -310,7 +310,7 @@ export default function Home() {
                 </div>
               </div>
               <p className="text-neutral-700 text-sm leading-relaxed">
-                "Professional office cleaning service. They've been maintaining our workspace for 6 months now. Reliable, efficient, and always on time. Great value for money."
+                &ldquo;Professional office cleaning service. They&rsquo;ve been maintaining our workspace for 6 months now. Reliable, efficient, and always on time. Great value for money.&rdquo;
               </p>
             </div>
 
@@ -337,7 +337,7 @@ export default function Home() {
                 </div>
               </div>
               <p className="text-neutral-700 text-sm leading-relaxed">
-                "After builders cleaning was outstanding. They removed all construction dust and debris. The house looked brand new. Will definitely use again!"
+                &ldquo;After builders cleaning was outstanding. They removed all construction dust and debris. The house looked brand new. Will definitely use again!&rdquo;
               </p>
             </div>
           </div>

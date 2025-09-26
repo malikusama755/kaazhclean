@@ -37,7 +37,7 @@ export default function ServicesPage() {
           <div className="bg-neutral-50 rounded-lg p-6 text-center">
             <h3 className="text-xl font-semibold mb-2">One-Off / Deep Clean</h3>
             <div className="text-3xl font-bold text-blue-600 mb-2">fixed quote</div>
-            <p className="text-sm text-neutral-600">We'll estimate based on size and extras.</p>
+            <p className="text-sm text-neutral-600">We&rsquo;ll estimate based on size and extras.</p>
           </div>
         </div>
         <div className="text-center mt-8">

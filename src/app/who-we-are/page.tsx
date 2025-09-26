@@ -74,7 +74,7 @@ export default function WhoWeArePage() {
           </p>
           <p className="text-neutral-700 text-sm md:text-base">
             With years of experience in the cleaning industry, we understand that every property is unique. 
-            That's why we tailor our services to meet your specific needs, whether it's a one-time deep clean 
+            That&rsquo;s why we tailor our services to meet your specific needs, whether it&rsquo;s a one-time deep clean 
             or regular maintenance for your home or office.
           </p>
           <div className="space-y-3">
@@ -165,7 +165,7 @@ export default function WhoWeArePage() {
               </div>
               
               <p className="text-neutral-700 text-sm leading-relaxed">
-                "{review.review}"
+                &ldquo;{review.review}&rdquo;
               </p>
             </div>
           ))}
