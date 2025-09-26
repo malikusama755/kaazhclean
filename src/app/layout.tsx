@@ -70,17 +70,18 @@ export default function RootLayout({
               />
               {/* Site name hidden per request */}
             </Link>
-            <nav className="hidden md:flex items-center gap-6 text-sm">
-              <Link href="/who-we-are" className="hover:text-neutral-600">Who We Are</Link>
-              <Link href="/services" className="hover:text-neutral-600">Our Services</Link>
-              <Link href="/contact" className="hover:text-neutral-600">Contact</Link>
-              <Link href="/quick-quote" className="inline-flex items-center rounded bg-neutral-900 text-white px-4 py-2 hover:bg-neutral-800">Quick Quote</Link>
-              <a href="tel:00923326666788" aria-label="Call" className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-neutral-900 text-white hover:bg-neutral-800">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-                  <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1v3.5a1 1 0 01-1 1C12.07 20.02 3.98 11.93 3.98 1.99a1 1 0 011-1H8.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.01l-2.2 2.2z" fill="currentColor"/>
-                </svg>
-              </a>
-            </nav>
+                <nav className="hidden md:flex items-center gap-6 text-sm">
+                  <Link href="/who-we-are" className="hover:text-neutral-600">Who We Are</Link>
+                  <Link href="/services" className="hover:text-neutral-600">Our Services</Link>
+                  <Link href="/reviews" className="hover:text-neutral-600">Reviews</Link>
+                  <Link href="/contact" className="hover:text-neutral-600">Contact</Link>
+                  <Link href="/quick-quote" className="inline-flex items-center rounded bg-neutral-900 text-white px-4 py-2 hover:bg-neutral-800">Quick Quote</Link>
+                  <a href="tel:00923326666788" aria-label="Call" className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-neutral-900 text-white hover:bg-neutral-800">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+                      <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1v3.5a1 1 0 01-1 1C12.07 20.02 3.98 11.93 3.98 1.99a1 1 0 011-1H8.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.01l-2.2 2.2z" fill="currentColor"/>
+                    </svg>
+                  </a>
+                </nav>
             <MobileNav />
           </div>
           {/* Mobile menu overlay handled by MobileNav */}
@@ -106,27 +107,29 @@ export default function RootLayout({
             </div>
             <div>
               <div className="font-semibold mb-3">Our Services</div>
-              <ul className="grid gap-2">
-                <li><Link href="/services/end-of-tenancy-cleaning" className="hover:underline">End of Tenancy Cleaning</Link></li>
-                <li><Link href="/services/office-commercial-cleaning" className="hover:underline">Office & Commercial Cleaning</Link></li>
-                <li><Link href="/services/deep-cleaning" className="hover:underline">Deep Cleaning</Link></li>
-                <li><Link href="/services/after-builders-cleaning" className="hover:underline">After Builders Cleaning</Link></li>
-                <li><Link href="/services/residential-cleaning" className="hover:underline">Residential Cleaning</Link></li>
-              </ul>
+                  <ul className="grid gap-2">
+                    <li><Link href="/services/end-of-tenancy-cleaning" className="hover:underline">End of Tenancy Cleaning</Link></li>
+                    <li><Link href="/services/office-commercial-cleaning" className="hover:underline">Office & Commercial Cleaning</Link></li>
+                    <li><Link href="/services/deep-cleaning" className="hover:underline">Deep Cleaning</Link></li>
+                    <li><Link href="/services/after-builders-cleaning" className="hover:underline">After Builders Cleaning</Link></li>
+                    <li><Link href="/services/residential-cleaning" className="hover:underline">Residential Cleaning</Link></li>
+                    <li><Link href="/services/last-minute-cleaning" className="hover:underline">Last Minute Cleaning</Link></li>
+                  </ul>
             </div>
             <div>
               <div className="font-semibold mb-3">Quick Quote</div>
               <form action="mailto:hikaazhsclean@gmail.com" method="post" encType="text/plain" className="grid gap-2 sm:gap-2.5">
                 <input name="name" placeholder="Your Name" className="w-full border border-neutral-300 rounded px-3 py-2 text-sm" required />
                 <input name="email" type="email" placeholder="Your Email" className="w-full border border-neutral-300 rounded px-3 py-2 text-sm" required />
-                <select name="service" className="w-full border border-neutral-300 rounded px-3 py-2 text-sm">
-                  <option>End Of Tenancy Cleaning</option>
-                  <option>After Builders Cleaning</option>
-                  <option>Deep Cleaning</option>
-                  <option>Residential Cleaning</option>
-                  <option>Office/Commercial Cleaning</option>
-                  <option>Other</option>
-                </select>
+                    <select name="service" className="w-full border border-neutral-300 rounded px-3 py-2 text-sm">
+                      <option>End Of Tenancy Cleaning</option>
+                      <option>After Builders Cleaning</option>
+                      <option>Deep Cleaning</option>
+                      <option>Residential Cleaning</option>
+                      <option>Office/Commercial Cleaning</option>
+                      <option>Last Minute Cleaning</option>
+                      <option>Other</option>
+                    </select>
                 <button type="submit" className="inline-flex items-center rounded bg-neutral-900 text-white px-4 py-2 font-medium hover:bg-neutral-800 w-full sm:w-auto justify-center">Send</button>
               </form>
             </div>

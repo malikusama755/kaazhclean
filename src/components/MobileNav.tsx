@@ -21,6 +21,7 @@ export default function MobileNav() {
           <div className="mx-auto max-w-6xl px-4 py-4 space-y-3">
             <Link href="/who-we-are" onClick={() => setOpen(false)} className="block py-2 text-base text-neutral-900 hover:text-neutral-600">Who We Are</Link>
             <Link href="/services" onClick={() => setOpen(false)} className="block py-2 text-base text-neutral-900 hover:text-neutral-600">Our Services</Link>
+            <Link href="/reviews" onClick={() => setOpen(false)} className="block py-2 text-base text-neutral-900 hover:text-neutral-600">Reviews</Link>
             <Link href="/contact" onClick={() => setOpen(false)} className="block py-2 text-base text-neutral-900 hover:text-neutral-600">Contact</Link>
             <div className="pt-2 space-y-2">
               <Link href="/quick-quote" onClick={() => setOpen(false)} className="inline-flex items-center justify-center rounded bg-neutral-900 text-white px-4 py-2 w-full hover:bg-neutral-800">Quick Quote</Link>
