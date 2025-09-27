@@ -100,7 +100,7 @@ export default function QuickQuotePage() {
   }, []);
   
   const handleNext = () => {
-    if (currentStep < 3) {
+    if (currentStep < 4) {
       setCurrentStep(currentStep + 1);
     }
   };
