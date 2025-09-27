@@ -76,7 +76,11 @@ export default function QuickQuotePage() {
   
   const productPrice = selectedProducts === "We provide" ? 6 : 0;
   const basePrice = durationPrices[selectedDuration as keyof typeof durationPrices] || 0;
-  const normalPrice = basePrice + productPrice;
+  
+  // Add extra task pricing
+  const extraTaskPrice = extraTasks.length * 5; // £5 per extra task
+  
+  const normalPrice = basePrice + productPrice + extraTaskPrice;
   
   // Apply discounts
   let finalPrice = normalPrice;
@@ -117,7 +121,7 @@ export default function QuickQuotePage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const mailtoLink = `mailto:hikaazhsclean@gmail.com?subject=Quick Quote Request - ${selectedService}&body=Service: ${selectedService}%0ADuration: ${selectedDuration} hours%0AProducts: ${selectedProducts}%0AFrequency: ${selectedFrequency}%0ABedrooms: ${bedrooms}%0ABathrooms: ${bathrooms}%0APostcode: ${postcode}%0AExtra Tasks: ${extraTasks.length > 0 ? extraTasks.join(', ') : 'None'}%0AName: ${customerDetails.name}%0AEmail: ${customerDetails.email}%0APhone: ${customerDetails.phone}%0APostcode: ${customerDetails.postcode}%0AMessage: ${customerDetails.message}%0ATotal Price: £${finalPrice}`;
+    const mailtoLink = `mailto:hikaazhsclean@gmail.com?subject=Quick Quote Request - ${selectedService}&body=Service: ${selectedService}%0ADuration: ${selectedDuration} hours%0AProducts: ${selectedProducts}%0AFrequency: ${selectedFrequency}%0ABedrooms: ${bedrooms}%0ABathrooms: ${bathrooms}%0APostcode: ${postcode}%0AExtra Tasks: ${extraTasks.length > 0 ? extraTasks.join(', ') : 'None'}%0A%0APrice Breakdown:%0ABase cleaning: £${basePrice}%0A${productPrice > 0 ? 'Cleaning products: £' + productPrice + '%0A' : ''}${extraTaskPrice > 0 ? 'Extra tasks: £' + extraTaskPrice + '%0A' : ''}Subtotal: £${normalPrice}%0A${discount > 0 ? 'Discount: -£' + discount + '%0A' : ''}Total: £${finalPrice}%0A%0ACustomer Details:%0AName: ${customerDetails.name}%0AEmail: ${customerDetails.email}%0APhone: ${customerDetails.phone}%0APostcode: ${customerDetails.postcode}%0AMessage: ${customerDetails.message}`;
     window.location.href = mailtoLink;
   };
   
@@ -342,34 +346,6 @@ export default function QuickQuotePage() {
           <p className="text-neutral-600 mb-8">Choose your preferences and see the pricing</p>
           
           <div className="max-w-2xl mx-auto space-y-8">
-            {/* Duration Selection */}
-            <div>
-              <h3 className="text-lg font-semibold mb-4">How long do you need?</h3>
-              <div className="grid grid-cols-3 gap-3">
-                {[
-                  { hours: "2.0", price: "£39" },
-                  { hours: "2.5", price: "£49" },
-                  { hours: "3.0", price: "£59" },
-                  { hours: "3.5", price: "£69" },
-                  { hours: "4.0", price: "£79" },
-                  { hours: "More", price: "Custom" }
-                ].map((option) => (
-                  <button
-                    key={option.hours}
-                    onClick={() => setSelectedDuration(option.hours)}
-                    className={`p-4 rounded-lg border-2 text-center transition-all ${
-                      selectedDuration === option.hours
-                        ? 'border-blue-600 bg-blue-50'
-                        : 'border-neutral-200 hover:border-neutral-300'
-                    }`}
-                  >
-                    <div className="font-medium">{option.hours}</div>
-                    <div className="text-sm text-neutral-600">{option.price}</div>
-                  </button>
-                ))}
-              </div>
-            </div>
-
             {/* Products Selection */}
             <div>
               <h3 className="text-lg font-semibold mb-4">Cleaning Products</h3>
@@ -394,7 +370,7 @@ export default function QuickQuotePage() {
                   }`}
                 >
                   <div className="font-medium">You provide</div>
-                  <div className="text-sm text-neutral-600">Bring your own</div>
+                 
                 </button>
               </div>
             </div>
@@ -445,18 +421,42 @@ export default function QuickQuotePage() {
 
             {/* Price Summary */}
             <div className="bg-neutral-50 rounded-lg p-6 border border-neutral-200">
-              <div className="flex items-center justify-between mb-2">
-                <span className="font-medium text-lg">Estimated Total</span>
+              <div className="flex items-center justify-between mb-4">
+                <span className="font-medium text-lg">Price Breakdown</span>
                 <span className="text-2xl font-bold text-blue-600">£{finalPrice}</span>
               </div>
+              
+              <div className="space-y-2 text-sm text-neutral-600 mb-4">
+                <div className="flex justify-between">
+                  <span>Base cleaning ({selectedDuration}h):</span>
+                  <span>£{basePrice}</span>
+                </div>
+                {productPrice > 0 && (
+                  <div className="flex justify-between">
+                    <span>Cleaning products:</span>
+                    <span>£{productPrice}</span>
+                  </div>
+                )}
+                {extraTaskPrice > 0 && (
+                  <div className="flex justify-between">
+                    <span>Extra tasks ({extraTasks.length}):</span>
+                    <span>£{extraTaskPrice}</span>
+                  </div>
+                )}
+                <div className="flex justify-between font-medium border-t pt-2">
+                  <span>Subtotal:</span>
+                  <span>£{normalPrice}</span>
+                </div>
+              </div>
+              
               {discount > 0 && (
-                <div className="text-sm text-neutral-600">
+                <div className="text-sm text-neutral-600 border-t pt-2">
                   <div className="flex justify-between">
                     <span>Normal price:</span>
                     <span className="line-through">£{normalPrice}</span>
                   </div>
                   <div className="flex justify-between text-green-600">
-                    <span>Discount:</span>
+                    <span>Discount ({selectedFrequency === "Weekly" ? "67%" : "30%"}):</span>
                     <span>-£{discount}</span>
                   </div>
                 </div>
