@@ -78,26 +78,6 @@ export default function Home() {
         </div>
       </section>
 
-      <section>
-        <div className="mx-auto max-w-6xl px-4 py-16 grid gap-6 md:grid-cols-3">
-          <div className="space-y-2">
-            <h2 className="text-2xl font-semibold">Office and commercial cleaning professionals</h2>
-            <p className="text-neutral-600">Comprehensive plans trusted by businesses in and around London.</p>
-            <Link href="/services/office-commercial-cleaning" className="text-neutral-900 underline">Get Started</Link>
-          </div>
-          <div className="space-y-2">
-            <h2 className="text-2xl font-semibold">Residential cleaning experts in London</h2>
-            <p className="text-neutral-600">From regular visits to end of tenancy cleans by fully trained operatives.</p>
-            <Link href="/services/residential-cleaning" className="text-neutral-900 underline">Get Started</Link>
-          </div>
-          <div className="space-y-2">
-            <h2 className="text-2xl font-semibold">End of Tenancy, After Builders, Deep Cleaning</h2>
-            <p className="text-neutral-600">Specialist services delivered to the highest standards.</p>
-            <Link href="/services" className="text-neutral-900 underline">Explore Services</Link>
-          </div>
-        </div>
-      </section>
-
       {/* Services Carousel Section */}
       <section className="bg-white">
         <div className="mx-auto max-w-6xl px-4 py-16">
