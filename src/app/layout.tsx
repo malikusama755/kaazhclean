@@ -4,7 +4,8 @@ import "./globals.css";
 import Link from "next/link";
 import Image from "next/image";
 import CookieBanner from "@/components/CookieBanner";
-import MobileNav from "@/components/MobileNav";
+import Navigation from "@/components/Navigation";
+import MobileNavigation from "@/components/MobileNavigation";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -70,19 +71,13 @@ export default function RootLayout({
               />
               {/* Site name hidden per request */}
             </Link>
-                <nav className="hidden md:flex items-center gap-6 text-sm">
-                  <Link href="/who-we-are" className="hover:text-neutral-600">Who We Are</Link>
-                  <Link href="/services" className="hover:text-neutral-600">Our Services</Link>
-                  <Link href="/reviews" className="hover:text-neutral-600">Reviews</Link>
-                  <Link href="/contact" className="hover:text-neutral-600">Contact</Link>
-                  <Link href="/quick-quote" className="inline-flex items-center rounded bg-neutral-900 text-white px-4 py-2 hover:bg-neutral-800">Quick Quote</Link>
-                  <a href="tel:00923326666788" aria-label="Call" className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-neutral-900 text-white hover:bg-neutral-800">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-                      <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1v3.5a1 1 0 01-1 1C12.07 20.02 3.98 11.93 3.98 1.99a1 1 0 011-1H8.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.01l-2.2 2.2z" fill="currentColor"/>
-                    </svg>
-                  </a>
-                </nav>
-            <MobileNav />
+                <Navigation />
+                <a href="tel:00923326666788" aria-label="Call" className="hidden md:inline-flex items-center justify-center h-10 w-10 rounded-full bg-neutral-900 text-white hover:bg-neutral-800">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+                    <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1v3.5a1 1 0 01-1 1C12.07 20.02 3.98 11.93 3.98 1.99a1 1 0 011-1H8.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.01l-2.2 2.2z" fill="currentColor"/>
+                  </svg>
+                </a>
+                <MobileNavigation />
           </div>
           {/* Mobile menu overlay handled by MobileNav */}
         </header>
