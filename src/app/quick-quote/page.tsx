@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import {
   IconIroningSteam,
@@ -12,7 +12,7 @@ import {
   IconWashMachine,
 } from "@tabler/icons-react";
 
-export default function QuickQuotePage() {
+function QuickQuoteContent() {
   const searchParams = useSearchParams();
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedService, setSelectedService] = useState("");
@@ -816,5 +816,13 @@ export default function QuickQuotePage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function QuickQuotePage() {
+  return (
+    <Suspense fallback={null}>
+      <QuickQuoteContent />
+    </Suspense>
   );
 }

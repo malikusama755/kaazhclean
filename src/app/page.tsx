@@ -14,12 +14,17 @@ export default function Home() {
             <p className="text-neutral-200 text-sm md:text-base">
               Experience a service where every detail matters. Professional cleaning services across London.
             </p>
-            <div className="flex flex-wrap gap-2 sm:gap-3">
-              <Link href="/quick-quote" className="inline-flex items-center rounded bg-white text-neutral-900 px-4 sm:px-5 py-2.5 sm:py-3 font-medium hover:bg-neutral-100 w-full sm:w-auto justify-center">Get Started</Link>
-              <Link href="/services" className="inline-flex items-center rounded border border-white/30 px-4 sm:px-5 py-2.5 sm:py-3 font-medium hover:bg-white/10 w-full sm:w-auto justify-center">Our Services</Link>
-              <a href="tel:00923326666788" className="inline-flex items-center rounded border border-white/30 px-4 sm:px-5 py-2.5 sm:py-3 font-medium hover:bg-white/10 w-full sm:w-auto justify-center">Call</a>
-              <a href="mailto:hikaazhsclean@gmail.com" className="inline-flex items-center rounded border border-white/30 px-4 sm:px-5 py-2.5 sm:py-3 font-medium hover:bg-white/10 w-full sm:w-auto justify-center">Email</a>
-            </div>
+                   <div className="flex flex-wrap gap-2 sm:gap-3">
+                     <Link href="/quick-quote" className="inline-flex items-center rounded bg-white text-neutral-900 px-4 sm:px-5 py-2.5 sm:py-3 font-medium hover:bg-neutral-100 w-full sm:w-auto justify-center">Get Started</Link>
+                     <Link href="/services" className="inline-flex items-center rounded border border-white/30 px-4 sm:px-5 py-2.5 sm:py-3 font-medium hover:bg-white/10 w-full sm:w-auto justify-center">Our Services</Link>
+                     <a href="tel:00923326666788" className="inline-flex items-center rounded border border-white/30 px-4 sm:px-5 py-2.5 sm:py-3 font-medium hover:bg-white/10 w-full sm:w-auto justify-center">Call</a>
+                     <a href="mailto:hikaazhsclean@gmail.com" className="inline-flex items-center rounded border border-white/30 px-4 sm:px-5 py-2.5 sm:py-3 font-medium hover:bg-white/10 w-full sm:w-auto justify-center">Email</a>
+                   </div>
+                   
+                   {/* Postcode Input in Hero */}
+                   <div className="mt-8">
+                     <PostcodeInput />
+                   </div>
           </div>
           <div className="relative aspect-[4/3] w-full rounded-lg overflow-hidden bg-neutral-800">
             <Image src="/images/hero-1.jpg" alt="Cleaning hero" fill className="object-cover opacity-95" priority />
@@ -34,12 +39,6 @@ export default function Home() {
         </div>
       </section>
 
-             {/* Postcode Input Section */}
-             <section className="bg-white py-16">
-               <div className="mx-auto max-w-6xl px-4">
-                 <PostcodeInput />
-               </div>
-             </section>
 
              {/* Service Coverage Section */}
              <section className="bg-neutral-50">
