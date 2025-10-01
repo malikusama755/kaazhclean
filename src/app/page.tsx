@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import PostcodeInput from "@/components/PostcodeInput";
 
 export default function Home() {
   return (
@@ -8,7 +9,7 @@ export default function Home() {
         <div className="mx-auto max-w-6xl px-4 py-12 md:py-24 grid gap-6 md:gap-8 md:grid-cols-2 md:items-center">
           <div className="space-y-4">
             <h1 className="text-2xl sm:text-3xl md:text-5xl font-semibold leading-tight">
-              We clean corners. We don’t cut them.
+            Because Every Corner Deserves Luxury.
             </h1>
             <p className="text-neutral-200 text-sm md:text-base">
               Experience a service where every detail matters. Professional cleaning services across London.
@@ -33,9 +34,16 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Service Coverage Section */}
-      <section className="bg-neutral-50">
-        <div className="mx-auto max-w-6xl px-4 py-16">
+             {/* Postcode Input Section */}
+             <section className="bg-white py-16">
+               <div className="mx-auto max-w-6xl px-4">
+                 <PostcodeInput />
+               </div>
+             </section>
+
+             {/* Service Coverage Section */}
+             <section className="bg-neutral-50">
+               <div className="mx-auto max-w-6xl px-4 py-16">
           <div className="text-center mb-8">
             <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium mb-6">
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -101,9 +109,9 @@ export default function Home() {
               <div className="p-4 md:p-6">
                 <h3 className="text-xl md:text-2xl font-bold text-blue-600 mb-2">Domestic Cleaning</h3>
                 <div className="text-lg md:text-xl font-semibold text-blue-600 mb-3 md:mb-4">from £18/h</div>
-                <p className="text-sm md:text-base text-neutral-600 mb-3 md:mb-4">
-                  KAAZHSCLEAN provides either one-off home cleaning or regular domestic packages. With our service, you can enjoy all the benefits of professional cleaners while paying a fair price to get a spotless home.
-                </p>
+                       <p className="text-sm md:text-base text-neutral-600 mb-3 md:mb-4">
+                         Luxe Gleam provides either one-off home cleaning or regular domestic packages. With our service, you can enjoy all the benefits of professional cleaners while paying a fair price to get a spotless home.
+                       </p>
                 <Link href="/services/residential-cleaning" className="inline-flex items-center text-blue-600 font-medium hover:underline text-sm md:text-base">
                   Learn More
                   <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -116,7 +124,7 @@ export default function Home() {
             {/* Service Card 2 - End of Tenancy */}
             <div className="flex-shrink-0 w-80 md:w-auto bg-white rounded-lg shadow-lg border border-neutral-200 overflow-hidden hover:shadow-xl transition-shadow">
               <div className="aspect-video relative">
-                <Image
+        <Image
                   src="/images/end-of-tenancy.jpg"
                   alt="End of tenancy cleaning"
                   fill
@@ -141,7 +149,7 @@ export default function Home() {
             {/* Service Card 3 - Office Cleaning */}
             <div className="flex-shrink-0 w-80 md:w-auto bg-white rounded-lg shadow-lg border border-neutral-200 overflow-hidden hover:shadow-xl transition-shadow">
               <div className="aspect-video relative">
-                <Image
+            <Image
                   src="/images/office-cleaning.jpg"
                   alt="Office cleaning service"
                   fill
@@ -161,12 +169,12 @@ export default function Home() {
                   </svg>
                 </Link>
               </div>
-            </div>
+        </div>
 
             {/* Service Card 4 - Deep Cleaning */}
             <div className="flex-shrink-0 w-80 md:w-auto bg-white rounded-lg shadow-lg border border-neutral-200 overflow-hidden hover:shadow-xl transition-shadow">
               <div className="aspect-video relative">
-                <Image
+          <Image
                   src="/images/deep-cleaning.jpg"
                   alt="Deep cleaning service"
                   fill
@@ -191,7 +199,7 @@ export default function Home() {
             {/* Service Card 5 - After Builders */}
             <div className="flex-shrink-0 w-80 md:w-auto bg-white rounded-lg shadow-lg border border-neutral-200 overflow-hidden hover:shadow-xl transition-shadow">
               <div className="aspect-video relative">
-                <Image
+          <Image
                   src="/images/after-builders.jpg"
                   alt="After builders cleaning"
                   fill
@@ -216,7 +224,7 @@ export default function Home() {
             {/* Service Card 6 - Last Minute Cleaning */}
             <div className="flex-shrink-0 w-80 md:w-auto bg-white rounded-lg shadow-lg border border-neutral-200 overflow-hidden hover:shadow-xl transition-shadow">
               <div className="aspect-video relative">
-                <Image
+          <Image
                   src="/images/last minute cleaning.jpg"
                   alt="Last minute cleaning service"
                   fill

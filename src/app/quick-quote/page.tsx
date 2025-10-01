@@ -1,8 +1,19 @@
 'use client'
 
 import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
+import {
+  IconIroningSteam,
+  IconWindow,
+  IconFridge,
+  IconSofa,
+  IconBucketDroplet,
+  IconHomeCog,
+  IconWashMachine,
+} from "@tabler/icons-react";
 
 export default function QuickQuotePage() {
+  const searchParams = useSearchParams();
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedService, setSelectedService] = useState("");
   const [selectedDuration, setSelectedDuration] = useState("2.0");
@@ -12,6 +23,11 @@ export default function QuickQuotePage() {
   const [bathrooms, setBathrooms] = useState(1);
   const [postcode, setPostcode] = useState("");
   const [extraTasks, setExtraTasks] = useState<string[]>([]);
+  const [propertyType, setPropertyType] = useState("");
+  const [carpetCleaning, setCarpetCleaning] = useState("");
+  const [upholsteryCleaning, setUpholsteryCleaning] = useState("");
+  const [selectedTime, setSelectedTime] = useState("");
+  const [parkingAvailable, setParkingAvailable] = useState("");
   const [customerDetails, setCustomerDetails] = useState({
     name: "",
     email: "",
@@ -20,28 +36,96 @@ export default function QuickQuotePage() {
     message: ""
   });
   
-  // Service options with icons
+  // Service options with Tabler Icons
   const services = [
-    { id: "residential", name: "Residential Cleaning", price: "from £18/h", icon: "🏠", popular: true },
-    { id: "end-of-tenancy", name: "End of Tenancy", price: "from £25/h", icon: "🔑" },
-    { id: "office", name: "Office Cleaning", price: "from £20/h", icon: "🏢" },
-    { id: "deep", name: "Deep Cleaning", price: "from £22/h", icon: "✨" },
-    { id: "after-builders", name: "After Builders", price: "from £24/h", icon: "🔨" },
-    { id: "last-minute", name: "Last Minute", price: "from £30/h", icon: "⚡" }
+    { 
+      id: "end-of-tenancy", 
+      name: "End of tenancy clean", 
+      price: "from £25/h", 
+      icon: (<IconSofa size={48} stroke={1.8} color="#0891b2" />), 
+      desc: "Our most thorough clean. When you're moving out or moving in" 
+    },
+    { 
+      id: "deep", 
+      name: "Deep clean", 
+      price: "from £22/h", 
+      icon: (<IconBucketDroplet size={48} stroke={1.8} color="#0891b2" />), 
+      desc: "More thorough than a regular clean. Remove dirt and limescale" 
+    },
+    { 
+      id: "after-builders", 
+      name: "After builders clean", 
+      price: "from £24/h", 
+      icon: (<IconHomeCog size={48} stroke={1.8} color="#0891b2" />), 
+      desc: "Remove dirt and dust after building work or renovation" 
+    },
+    { 
+      id: "carpet", 
+      name: "Carpet clean", 
+      price: "from £30/h", 
+      icon: (
+        <svg className="w-12 h-12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="5" y="6" width="14" height="12" rx="2" stroke="#0891b2" strokeWidth="2"/>
+          <path d="M7 9h10M7 12h10M7 15h10" stroke="#0891b2" strokeWidth="1.5"/>
+          <path d="M5 6V4M19 6V4M5 18v2M19 18v2" stroke="#0891b2" strokeWidth="1.5"/>
+        </svg>
+      ), 
+      desc: "Remove stains from carpets, rugs and other upholstery" 
+    }
   ];
   
-  // Extra tasks options
+  // Extra tasks options with Tabler Icons
   const extraTaskOptions = [
-    { id: "ironing", name: "Ironing", icon: "👔" },
-    { id: "laundry", name: "Laundry", icon: "🧺" },
-    { id: "inside-windows", name: "Inside windows", icon: "🪟" },
-    { id: "inside-fridge", name: "Inside fridge", icon: "🧊" },
-    { id: "inside-oven", name: "Inside oven", icon: "🔥" }
+    { 
+      id: "ironing", 
+      name: "Ironing", 
+      icon: (<IconIroningSteam size={32} stroke={1.8} color="#0891b2" />)
+    },
+    { 
+      id: "laundry", 
+      name: "Laundry", 
+      icon: (<IconWashMachine size={32} stroke={1.8} color="#0891b2" />)
+    },
+    { 
+      id: "inside-windows", 
+      name: "Inside windows", 
+      icon: (<IconWindow size={32} stroke={1.8} color="#0891b2" />)
+    },
+    { 
+      id: "inside-fridge", 
+      name: "Inside fridge", 
+      icon: (<IconFridge size={32} stroke={1.8} color="#0891b2" />)
+    },
+    { 
+      id: "inside-oven", 
+      name: "Inside oven", 
+      icon: (
+        <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3" y="4" width="18" height="16" rx="2" stroke="#0891b2" strokeWidth="2"/>
+          <rect x="6" y="7" width="12" height="6" stroke="#0891b2" strokeWidth="1.5" />
+          <rect x="6" y="14" width="12" height="4" stroke="#0891b2" strokeWidth="1.5" />
+          <circle cx="8" cy="6" r="1" fill="#0891b2"/>
+          <circle cx="11" cy="6" r="1" fill="#0891b2"/>
+          <circle cx="14" cy="6" r="1" fill="#0891b2"/>
+          <circle cx="17" cy="6" r="1" fill="#0891b2"/>
+        </svg>
+      )
+    }
   ];
 
   // Duration options
   const durationOptions = [
     "2.0", "2.5", "3.0", "3.5", "4.0", "4.5", "5.0", "5.5", "6.0", "6.5", "7.0", "7.5", "8.0"
+  ];
+
+  // Time selection options
+  const timeOptions = [
+    { id: "daytime", name: "Daytime (09:00 - 15:00)" },
+    { id: "early-morning", name: "Early morning (08:00 - 09:00)" },
+    { id: "morning", name: "Morning (09:00 - 12:00)" },
+    { id: "afternoon", name: "Afternoon (12:00 - 15:00)" },
+    { id: "late-afternoon", name: "Late afternoon (15:00 - 18:00)" },
+    { id: "evening", name: "Evening (18:00 - 19:00)" }
   ];
 
   // Calculate recommended duration based on bedrooms, bathrooms, and extra tasks
@@ -94,13 +178,20 @@ export default function QuickQuotePage() {
     finalPrice = normalPrice - discount;
   }
   
-  // Set page title
+  // Set page title and handle postcode parameter
   useEffect(() => {
-    document.title = "Quick Quote | KAAZHSCLEAN";
-  }, []);
-  
+    document.title = "Quick Quote | Luxe Gleam";
+    
+    // Get postcode from URL parameters
+    const postcodeParam = searchParams.get('postcode');
+    if (postcodeParam) {
+      setPostcode(postcodeParam);
+      setCustomerDetails(prev => ({ ...prev, postcode: postcodeParam }));
+    }
+  }, [searchParams]);
+
   const handleNext = () => {
-    if (currentStep < 4) {
+    if (currentStep < 5) {
       setCurrentStep(currentStep + 1);
     }
   };
@@ -126,446 +217,604 @@ export default function QuickQuotePage() {
   };
   
   return (
-    <div className="mx-auto max-w-4xl px-4 py-10 md:py-16">
-      {/* Progress Bar */}
-      <div className="mb-8">
-        <div className="flex items-center justify-center space-x-4 mb-4">
-          {[1, 2, 3, 4].map((step) => (
-            <div key={step} className="flex items-center">
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-                currentStep >= step 
-                  ? 'bg-blue-600 text-white' 
-                  : 'bg-neutral-200 text-neutral-600'
-              }`}>
-                {step}
-              </div>
-              {step < 3 && (
-                <div className={`w-16 h-1 mx-2 ${
-                  currentStep > step ? 'bg-blue-600' : 'bg-neutral-200'
-                }`} />
-              )}
+    <div className="min-h-screen bg-neutral-50">
+      {/* Header */}
+      <div className="bg-white border-b border-neutral-200">
+        <div className="mx-auto max-w-4xl px-4 py-4">
+          <div className="flex items-center justify-between">
+            <h1 className="text-2xl font-bold text-neutral-900">Luxe Gleam</h1>
+            <div className="text-sm text-neutral-600">
+              Step {currentStep} of 5
             </div>
-          ))}
-        </div>
-        <div className="text-center">
-          <p className="text-sm text-neutral-600">
-            Step {currentStep} of 4: {
-              currentStep === 1 ? 'Customize Clean' :
-              currentStep === 2 ? 'Select Service' :
-              currentStep === 3 ? 'Choose Options' :
-              'Your Details'
-            }
-          </p>
+          </div>
         </div>
       </div>
 
-      {/* Step 1: Customize Your Clean */}
-      {currentStep === 1 && (
+      <div className="mx-auto max-w-4xl px-4 py-8">
+        {/* Progress Bar */}
         <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-semibold mb-4 text-center">Customise your clean</h1>
-          
-          {/* Postcode Input */}
-          <div className="mb-8">
-            <label className="block text-sm font-medium text-neutral-600 mb-2">Your postcode</label>
-            <input
-              type="text"
-              value={postcode}
-              onChange={(e) => setPostcode(e.target.value)}
-              placeholder="e.g. SE9 6DR"
-              className="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            />
-          </div>
-
-          {/* Bedrooms Counter */}
-          <div className="mb-8">
-            <label className="block text-sm font-medium text-neutral-600 mb-2">
-              How many <strong>bedrooms</strong> need cleaning?
-            </label>
-            <div className="flex items-center border border-neutral-300 rounded-lg w-fit">
-              <button
-                type="button"
-                onClick={() => setBedrooms(Math.max(1, bedrooms - 1))}
-                className="px-4 py-3 text-neutral-400 hover:text-neutral-600"
-              >
-                -
-              </button>
-              <span className="px-6 py-3 text-neutral-900 font-medium">
-                {bedrooms} {bedrooms === 1 ? 'bedroom' : 'bedrooms'}
-              </span>
-              <button
-                type="button"
-                onClick={() => setBedrooms(bedrooms + 1)}
-                className="px-4 py-3 text-neutral-400 hover:text-neutral-600"
-              >
-                +
-              </button>
-            </div>
-          </div>
-
-          {/* Bathrooms Counter */}
-          <div className="mb-8">
-            <label className="block text-sm font-medium text-neutral-600 mb-2">
-              How many <strong>bathrooms</strong> need cleaning?
-            </label>
-            <div className="flex items-center border border-neutral-300 rounded-lg w-fit">
-              <button
-                type="button"
-                onClick={() => setBathrooms(Math.max(1, bathrooms - 1))}
-                className="px-4 py-3 text-neutral-400 hover:text-neutral-600"
-              >
-                -
-              </button>
-              <span className="px-6 py-3 text-neutral-900 font-medium">
-                {bathrooms} {bathrooms === 1 ? 'bathroom' : 'bathrooms'}
-              </span>
-              <button
-                type="button"
-                onClick={() => setBathrooms(bathrooms + 1)}
-                className="px-4 py-3 text-neutral-400 hover:text-neutral-600"
-              >
-                +
-              </button>
-            </div>
-          </div>
-
-          {/* Extra Tasks */}
-          <div className="mb-8">
-            <h3 className="text-lg font-medium text-neutral-900 mb-4">Extra tasks (optional)</h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              {extraTaskOptions.map((task) => (
-                <button
-                  key={task.id}
-                  type="button"
-                  onClick={() => handleExtraTaskToggle(task.id)}
-                  className={`p-4 rounded-lg border-2 text-center transition-all ${
-                    extraTasks.includes(task.id)
-                      ? 'border-blue-600 bg-blue-50'
-                      : 'border-neutral-200 hover:border-neutral-300'
-                  }`}
-                >
-                  <div className="text-2xl mb-2">{task.icon}</div>
-                  <div className="text-sm font-medium text-neutral-900">{task.name}</div>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <p className="text-sm text-neutral-500 mb-8">
-            Your cleaner will also clean your kitchen, lounge and common areas.
-          </p>
-          
-          <div className="text-center">
-            <button
-              onClick={handleNext}
-              disabled={!postcode}
-              className="bg-blue-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-blue-700 disabled:bg-neutral-300 disabled:cursor-not-allowed"
-            >
-              Continue
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* Step 2: Service Selection & Duration */}
-      {currentStep === 2 && (
-        <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-semibold mb-4 text-center">Choose Your Service</h1>
-          <p className="text-neutral-600 mb-8 text-center">Select the cleaning service that best fits your needs</p>
-          
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mb-8">
-            {services.map((service) => (
-              <button
-                key={service.id}
-                onClick={() => setSelectedService(service.id)}
-                className={`p-6 rounded-lg border-2 text-left transition-all hover:shadow-md ${
-                  selectedService === service.id
-                    ? 'border-blue-600 bg-blue-50'
-                    : 'border-neutral-200 hover:border-neutral-300'
-                }`}
-              >
-                <div className="text-3xl mb-3">{service.icon}</div>
-                <h3 className="font-semibold text-lg mb-2">{service.name}</h3>
-                <p className="text-blue-600 font-medium">{service.price}</p>
-                {service.popular && (
-                  <span className="inline-block mt-2 bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">
-                    Most Popular
-                  </span>
+          <div className="flex items-center justify-center space-x-4 mb-6">
+            {[1, 2, 3, 4, 5].map((step) => (
+              <div key={step} className="flex items-center">
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
+                  currentStep >= step 
+                    ? 'bg-blue-600 text-white' 
+                    : 'bg-neutral-200 text-neutral-600'
+                }`}>
+                  {step}
+                </div>
+                {step < 5 && (
+                  <div className={`h-0.5 w-12 ${
+                    currentStep > step ? 'bg-blue-600' : 'bg-neutral-200'
+                  }`} />
                 )}
-              </button>
+              </div>
             ))}
           </div>
-
-          {/* Duration Selection */}
-          {selectedService && (
-            <div className="mb-8">
-              <div className="text-center mb-4">
-                <p className="text-sm text-neutral-600">
-                  We recommend selecting <strong>{recommendedDuration}</strong> hours
-                </p>
-                <p className="text-xs text-neutral-500">
-                  Based on your {bedrooms} {bedrooms === 1 ? 'bedroom' : 'bedrooms'}, {bathrooms} {bathrooms === 1 ? 'bathroom' : 'bathrooms'} and extra tasks
-                </p>
-              </div>
-              
-              <div className="grid grid-cols-3 md:grid-cols-4 gap-3 max-w-2xl mx-auto">
-                {durationOptions.map((duration) => (
-                  <button
-                    key={duration}
-                    onClick={() => setSelectedDuration(duration)}
-                    className={`p-3 rounded-lg border-2 text-center transition-all ${
-                      selectedDuration === duration
-                        ? 'border-blue-600 bg-blue-600 text-white'
-                        : duration === recommendedDuration.toString()
-                        ? 'border-blue-300 bg-blue-50 text-blue-700'
-                        : 'border-neutral-200 hover:border-neutral-300'
-                    }`}
-                  >
-                    {duration}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-          
-          <div className="text-center">
-            <button
-              onClick={handleNext}
-              disabled={!selectedService}
-              className="bg-blue-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-blue-700 disabled:bg-neutral-300 disabled:cursor-not-allowed"
-            >
-              Continue
-            </button>
-          </div>
         </div>
-      )}
 
-      {/* Step 3: Options Selection */}
-      {currentStep === 3 && (
-        <div className="text-center mb-8">
-          <h1 className="text-3xl md:text-4xl font-semibold mb-4">Customize Your Service</h1>
-          <p className="text-neutral-600 mb-8">Choose your preferences and see the pricing</p>
-          
-          <div className="max-w-2xl mx-auto space-y-8">
-            {/* Products Selection */}
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Cleaning Products</h3>
+        {/* Step 1: Customize Your Clean */}
+        {currentStep === 1 && (
+          <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-8">
+            <h1 className="text-2xl font-bold text-neutral-900 mb-6">Customise your clean</h1>
+            
+            {/* Postcode Input */}
+            <div className="mb-8">
+              <label className="block text-sm font-medium text-neutral-700 mb-2">Your postcode</label>
+              <input
+                type="text"
+                value={postcode}
+                onChange={(e) => setPostcode(e.target.value)}
+                placeholder="e.g. SE9 6DR"
+                className="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+
+            {/* Property Type Selection */}
+            <div className="mb-8">
+              <label className="block text-sm font-medium text-neutral-700 mb-4">Is the property a flat or house?</label>
               <div className="grid grid-cols-2 gap-4">
                 <button
-                  onClick={() => setSelectedProducts("We provide")}
+                  onClick={() => setPropertyType("flat")}
                   className={`p-4 rounded-lg border-2 text-center transition-all ${
-                    selectedProducts === "We provide"
+                    propertyType === "flat"
                       ? 'border-blue-600 bg-blue-50'
                       : 'border-neutral-200 hover:border-neutral-300'
                   }`}
                 >
-                  <div className="font-medium">We provide (+£6)</div>
-                  <div className="text-sm text-neutral-600">Sprays & cloths included</div>
+                  <div className="font-medium text-neutral-900">Flat</div>
                 </button>
                 <button
-                  onClick={() => setSelectedProducts("You provide")}
+                  onClick={() => setPropertyType("house")}
                   className={`p-4 rounded-lg border-2 text-center transition-all ${
-                    selectedProducts === "You provide"
+                    propertyType === "house"
                       ? 'border-blue-600 bg-blue-50'
                       : 'border-neutral-200 hover:border-neutral-300'
                   }`}
                 >
-                  <div className="font-medium">You provide</div>
-                 
+                  <div className="font-medium text-neutral-900">House</div>
                 </button>
               </div>
             </div>
 
-            {/* Frequency Selection */}
-            <div>
-              <h3 className="text-lg font-semibold mb-4">How often?</h3>
+            {/* Carpet Cleaning Selection */}
+            <div className="mb-8">
+              <label className="block text-sm font-medium text-neutral-700 mb-4">What kind of carpet cleaning do you need?</label>
               <div className="space-y-3">
-                {[
-                  { id: "One-time", name: "One-time clean", desc: "Perfect for end of tenancy or deep clean", price: normalPrice },
-                  { id: "Weekly", name: "Weekly", desc: "That clean home feeling on repeat", price: finalPrice, discount: true, popular: true },
-                  { id: "Fortnightly", name: "Fortnightly", desc: "Every 2 weeks", price: finalPrice }
-                ].map((option) => (
+                <button
+                  onClick={() => setCarpetCleaning("vacuuming")}
+                  className={`w-full p-4 rounded-lg border-2 text-left transition-all ${
+                    carpetCleaning === "vacuuming"
+                      ? 'border-blue-600 bg-blue-50'
+                      : 'border-neutral-200 hover:border-neutral-300'
+                  }`}
+                >
+                  <div className="font-medium text-neutral-900">Vacuuming only</div>
+                </button>
+                <button
+                  onClick={() => setCarpetCleaning("deep")}
+                  className={`w-full p-4 rounded-lg border-2 text-left transition-all ${
+                    carpetCleaning === "deep"
+                      ? 'border-blue-600 bg-blue-50'
+                      : 'border-neutral-200 hover:border-neutral-300'
+                  }`}
+                >
+                  <div className="font-medium text-neutral-900">Deep cleaning</div>
+                </button>
+                <button
+                  onClick={() => setCarpetCleaning("none")}
+                  className={`w-full p-4 rounded-lg border-2 text-left transition-all ${
+                    carpetCleaning === "none"
+                      ? 'border-blue-600 bg-blue-50'
+                      : 'border-neutral-200 hover:border-neutral-300'
+                  }`}
+                >
+                  <div className="font-medium text-neutral-900">No carpets</div>
+                </button>
+              </div>
+            </div>
+
+            {/* Upholstery Cleaning */}
+            <div className="mb-8">
+              <label className="block text-sm font-medium text-neutral-700 mb-4">Do you need any upholstery cleaning?</label>
+              <p className="text-sm text-neutral-500 mb-4">e.g. sofas and mattresses</p>
+              <div className="grid grid-cols-2 gap-4">
+                <button
+                  onClick={() => setUpholsteryCleaning("yes")}
+                  className={`p-4 rounded-lg border-2 text-center transition-all ${
+                    upholsteryCleaning === "yes"
+                      ? 'border-blue-600 bg-blue-50'
+                      : 'border-neutral-200 hover:border-neutral-300'
+                  }`}
+                >
+                  <div className="font-medium text-neutral-900">Yes</div>
+                </button>
+                <button
+                  onClick={() => setUpholsteryCleaning("no")}
+                  className={`p-4 rounded-lg border-2 text-center transition-all ${
+                    upholsteryCleaning === "no"
+                      ? 'border-blue-600 bg-blue-50'
+                      : 'border-neutral-200 hover:border-neutral-300'
+                  }`}
+                >
+                  <div className="font-medium text-neutral-900">No</div>
+                </button>
+              </div>
+            </div>
+
+            {/* Bedrooms Counter */}
+            <div className="mb-8">
+              <label className="block text-sm font-medium text-neutral-700 mb-2">
+                How many <strong>bedrooms</strong> need cleaning?
+              </label>
+              <div className="flex items-center border border-neutral-300 rounded-lg w-fit">
+                <button
+                  type="button"
+                  onClick={() => setBedrooms(Math.max(1, bedrooms - 1))}
+                  className="px-4 py-3 text-neutral-400 hover:text-neutral-600"
+                >
+                  -
+                </button>
+                <span className="px-6 py-3 text-neutral-900 font-medium">
+                  {bedrooms} {bedrooms === 1 ? 'bedroom' : 'bedrooms'}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setBedrooms(bedrooms + 1)}
+                  className="px-4 py-3 text-neutral-400 hover:text-neutral-600"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+
+            {/* Bathrooms Counter */}
+            <div className="mb-8">
+              <label className="block text-sm font-medium text-neutral-700 mb-2">
+                How many <strong>bathrooms</strong> need cleaning?
+              </label>
+              <div className="flex items-center border border-neutral-300 rounded-lg w-fit">
+                <button
+                  type="button"
+                  onClick={() => setBathrooms(Math.max(1, bathrooms - 1))}
+                  className="px-4 py-3 text-neutral-400 hover:text-neutral-600"
+                >
+                  -
+                </button>
+                <span className="px-6 py-3 text-neutral-900 font-medium">
+                  {bathrooms} {bathrooms === 1 ? 'bathroom' : 'bathrooms'}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setBathrooms(bathrooms + 1)}
+                  className="px-4 py-3 text-neutral-400 hover:text-neutral-600"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+
+            {/* Extra Tasks */}
+            <div className="mb-8">
+              <h3 className="text-lg font-medium text-neutral-900 mb-4">Extra tasks (optional)</h3>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                {extraTaskOptions.map((task) => (
                   <button
-                    key={option.id}
-                    onClick={() => setSelectedFrequency(option.id)}
-                    className={`w-full p-4 rounded-lg border-2 text-left transition-all ${
-                      selectedFrequency === option.id
+                    key={task.id}
+                    type="button"
+                    onClick={() => handleExtraTaskToggle(task.id)}
+                    className={`p-6 rounded-lg border-2 text-center transition-all hover:shadow-md ${
+                      extraTasks.includes(task.id)
                         ? 'border-blue-600 bg-blue-50'
                         : 'border-neutral-200 hover:border-neutral-300'
                     }`}
                   >
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <div className="font-medium">{option.name}</div>
-                        <div className="text-sm text-neutral-600">{option.desc}</div>
-                      </div>
-                      <div className="text-right">
-                        {option.discount ? (
-                          <div>
-                            <div className="text-sm text-neutral-500 line-through">£{normalPrice}</div>
-                            <div className="font-medium text-green-600">£{option.price}</div>
-                          </div>
-                        ) : (
-                          <div className="font-medium">£{option.price}</div>
-                        )}
-                        {option.popular && (
-                          <div className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full mt-1">
-                            Best Value
-                          </div>
-                        )}
-                      </div>
+                    <div className="flex justify-center mb-3">
+                      {task.icon}
                     </div>
+                    <div className="text-sm font-medium text-neutral-900">{task.name}</div>
                   </button>
                 ))}
               </div>
             </div>
 
-            {/* Price Summary */}
-            <div className="bg-neutral-50 rounded-lg p-6 border border-neutral-200">
-              <div className="flex items-center justify-between mb-4">
-                <span className="font-medium text-lg">Price Breakdown</span>
-                <span className="text-2xl font-bold text-blue-600">£{finalPrice}</span>
-              </div>
-              
-              <div className="space-y-2 text-sm text-neutral-600 mb-4">
-                <div className="flex justify-between">
-                  <span>Base cleaning ({selectedDuration}h):</span>
-                  <span>£{basePrice}</span>
-                </div>
-                {productPrice > 0 && (
-                  <div className="flex justify-between">
-                    <span>Cleaning products:</span>
-                    <span>£{productPrice}</span>
-                  </div>
-                )}
-                {extraTaskPrice > 0 && (
-                  <div className="flex justify-between">
-                    <span>Extra tasks ({extraTasks.length}):</span>
-                    <span>£{extraTaskPrice}</span>
-                  </div>
-                )}
-                <div className="flex justify-between font-medium border-t pt-2">
-                  <span>Subtotal:</span>
-                  <span>£{normalPrice}</span>
-                </div>
-              </div>
-              
-              {discount > 0 && (
-                <div className="text-sm text-neutral-600 border-t pt-2">
-                  <div className="flex justify-between">
-                    <span>Normal price:</span>
-                    <span className="line-through">£{normalPrice}</span>
-                  </div>
-                  <div className="flex justify-between text-green-600">
-                    <span>Discount ({selectedFrequency === "Weekly" ? "67%" : "30%"}):</span>
-                    <span>-£{discount}</span>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-          
-          <div className="flex gap-4 justify-center mt-8">
-            <button
-              onClick={handleBack}
-              className="px-6 py-3 border border-neutral-300 rounded-lg font-medium hover:bg-neutral-50"
-            >
-              Back
-            </button>
-            <button
-              onClick={handleNext}
-              className="bg-blue-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-blue-700"
-            >
-              Continue
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* Step 4: Customer Details */}
-      {currentStep === 4 && (
-        <div className="text-center mb-8">
-          <h1 className="text-3xl md:text-4xl font-semibold mb-4">Your Details</h1>
-          <p className="text-neutral-600 mb-8">We&rsquo;ll use this information to contact you with your quote</p>
-          
-          <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-6">
-            <div className="grid gap-4 md:grid-cols-2">
-              <input
-                type="text"
-                placeholder="Your Name"
-                value={customerDetails.name}
-                onChange={(e) => setCustomerDetails({...customerDetails, name: e.target.value})}
-                className="w-full border border-neutral-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                required
-              />
-              <input
-                type="email"
-                placeholder="Your Email"
-                value={customerDetails.email}
-                onChange={(e) => setCustomerDetails({...customerDetails, email: e.target.value})}
-                className="w-full border border-neutral-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                required
-              />
-            </div>
+            <p className="text-sm text-neutral-500 mb-8">
+              Your cleaner will also clean your kitchen, lounge and common areas.
+            </p>
             
-            <div className="grid gap-4 md:grid-cols-2">
-              <input
-                type="tel"
-                placeholder="Your Phone"
-                value={customerDetails.phone}
-                onChange={(e) => setCustomerDetails({...customerDetails, phone: e.target.value})}
-                className="w-full border border-neutral-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <input
-                type="text"
-                placeholder="Postcode (optional)"
-                value={customerDetails.postcode || postcode}
-                onChange={(e) => setCustomerDetails({...customerDetails, postcode: e.target.value})}
-                className="w-full border border-neutral-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-            
-            <textarea
-              placeholder="Any additional information about your cleaning needs?"
-              value={customerDetails.message}
-              onChange={(e) => setCustomerDetails({...customerDetails, message: e.target.value})}
-              rows={4}
-              className="w-full border border-neutral-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            
-            {/* Final Price Summary */}
-            <div className="bg-blue-50 rounded-lg p-6 border border-blue-200">
-              <div className="flex items-center justify-between">
-                <div>
-                  <div className="font-medium">{services.find(s => s.id === selectedService)?.name}</div>
-                  <div className="text-sm text-neutral-600">{selectedDuration} hours • {selectedFrequency} • {selectedProducts}</div>
-                </div>
-                <div className="text-right">
-                  <div className="text-2xl font-bold text-blue-600">£{finalPrice}</div>
-                  {discount > 0 && (
-                    <div className="text-sm text-green-600">Save £{discount}</div>
-                  )}
-                </div>
-              </div>
-            </div>
-            
-            <div className="flex gap-4 justify-center">
+            <div className="text-center">
               <button
-                type="button"
+                onClick={handleNext}
+                disabled={!postcode}
+                className="bg-blue-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-blue-700 disabled:bg-neutral-300 disabled:cursor-not-allowed"
+              >
+                Continue
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Step 2: Service Selection & Duration */}
+        {currentStep === 2 && (
+          <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-8">
+            <h1 className="text-2xl font-bold text-neutral-900 mb-6">What type of clean do you need?</h1>
+            
+            <div className="grid gap-4 md:grid-cols-2 mb-8">
+              {services.map((service) => (
+                <button
+                  key={service.id}
+                  onClick={() => setSelectedService(service.id)}
+                  className={`p-6 rounded-lg border-2 text-left transition-all hover:shadow-md ${
+                    selectedService === service.id
+                      ? 'border-blue-600 bg-blue-50'
+                      : 'border-neutral-200 hover:border-neutral-300'
+                  }`}
+                >
+                  <div className="flex justify-center mb-3">
+                    {service.icon}
+                  </div>
+                  <h3 className="font-semibold text-lg mb-2">{service.name}</h3>
+                  <p className="text-sm text-neutral-600 mb-2">{service.desc}</p>
+                  <p className="text-blue-600 font-medium">{service.price}</p>
+                </button>
+              ))}
+            </div>
+
+            {/* Duration Selection */}
+            {selectedService && (
+              <div className="mb-8">
+                <div className="text-center mb-4">
+                  <p className="text-sm text-neutral-600">
+                    We recommend selecting <strong>{recommendedDuration}</strong> hours
+                  </p>
+                  <p className="text-xs text-neutral-500">
+                    Based on your {bedrooms} {bedrooms === 1 ? 'bedroom' : 'bedrooms'}, {bathrooms} {bathrooms === 1 ? 'bathroom' : 'bathrooms'} and extra tasks
+                  </p>
+                </div>
+                
+                <div className="grid grid-cols-3 md:grid-cols-4 gap-3 max-w-2xl mx-auto">
+                  {durationOptions.map((duration) => (
+                    <button
+                      key={duration}
+                      onClick={() => setSelectedDuration(duration)}
+                      className={`p-3 rounded-lg border-2 text-center transition-all ${
+                        selectedDuration === duration
+                          ? 'border-blue-600 bg-blue-600 text-white'
+                          : duration === recommendedDuration.toString()
+                          ? 'border-blue-300 bg-blue-50 text-blue-700'
+                          : 'border-neutral-200 hover:border-neutral-300'
+                      }`}
+                    >
+                      {duration}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+            
+            <div className="flex gap-4 justify-center mt-8">
+              <button
                 onClick={handleBack}
                 className="px-6 py-3 border border-neutral-300 rounded-lg font-medium hover:bg-neutral-50"
               >
                 Back
               </button>
               <button
-                type="submit"
-                className="bg-blue-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-blue-700"
+                onClick={handleNext}
+                disabled={!selectedService}
+                className="bg-blue-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-blue-700 disabled:bg-neutral-300 disabled:cursor-not-allowed"
               >
-                Send Quote Request
+                Continue
               </button>
             </div>
-          </form>
-        </div>
-      )}
+          </div>
+        )}
+
+        {/* Step 3: Time and Parking Selection */}
+        {currentStep === 3 && (
+          <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-8">
+            <h1 className="text-2xl font-bold text-neutral-900 mb-6">What time would you like the cleaning team to arrive?</h1>
+            
+            <div className="space-y-3 mb-8">
+              {timeOptions.map((time) => (
+                <button
+                  key={time.id}
+                  onClick={() => setSelectedTime(time.id)}
+                  className={`w-full p-4 rounded-lg border-2 text-left transition-all ${
+                    selectedTime === time.id
+                      ? 'border-blue-600 bg-blue-50'
+                      : 'border-neutral-200 hover:border-neutral-300'
+                  }`}
+                >
+                  <div className="font-medium text-neutral-900">{time.name}</div>
+                </button>
+              ))}
+            </div>
+
+            <div className="mb-8">
+              <label className="block text-sm font-medium text-neutral-700 mb-4">Can you provide free parking?</label>
+              <div className="grid grid-cols-2 gap-4">
+                <button
+                  onClick={() => setParkingAvailable("yes")}
+                  className={`p-4 rounded-lg border-2 text-center transition-all ${
+                    parkingAvailable === "yes"
+                      ? 'border-blue-600 bg-blue-50'
+                      : 'border-neutral-200 hover:border-neutral-300'
+                  }`}
+                >
+                  <div className="font-medium text-neutral-900">Yes</div>
+                </button>
+                <button
+                  onClick={() => setParkingAvailable("no")}
+                  className={`p-4 rounded-lg border-2 text-center transition-all ${
+                    parkingAvailable === "no"
+                      ? 'border-blue-600 bg-blue-50'
+                      : 'border-neutral-200 hover:border-neutral-300'
+                  }`}
+                >
+                  <div className="font-medium text-neutral-900">No</div>
+                </button>
+              </div>
+            </div>
+            
+            <div className="flex gap-4 justify-center mt-8">
+              <button
+                onClick={handleBack}
+                className="px-6 py-3 border border-neutral-300 rounded-lg font-medium hover:bg-neutral-50"
+              >
+                Back
+              </button>
+              <button
+                onClick={handleNext}
+                disabled={!selectedTime || !parkingAvailable}
+                className="bg-blue-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-blue-700 disabled:bg-neutral-300 disabled:cursor-not-allowed"
+              >
+                Continue
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Step 4: Options Selection */}
+        {currentStep === 4 && (
+          <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-8">
+            <h1 className="text-2xl font-bold text-neutral-900 mb-6">Customize Your Service</h1>
+            <p className="text-neutral-600 mb-8">Choose your preferences and see the pricing</p>
+            
+            <div className="max-w-2xl mx-auto space-y-8">
+              {/* Products Selection */}
+              <div>
+                <h3 className="text-lg font-semibold mb-4">Cleaning Products</h3>
+                <div className="grid grid-cols-2 gap-4">
+                  <button
+                    onClick={() => setSelectedProducts("We provide")}
+                    className={`p-4 rounded-lg border-2 text-center transition-all ${
+                      selectedProducts === "We provide"
+                        ? 'border-blue-600 bg-blue-50'
+                        : 'border-neutral-200 hover:border-neutral-300'
+                    }`}
+                  >
+                    <div className="font-medium">We provide (+£6)</div>
+                    <div className="text-sm text-neutral-600">Sprays & cloths included</div>
+                  </button>
+                  <button
+                    onClick={() => setSelectedProducts("You provide")}
+                    className={`p-4 rounded-lg border-2 text-center transition-all ${
+                      selectedProducts === "You provide"
+                        ? 'border-blue-600 bg-blue-50'
+                        : 'border-neutral-200 hover:border-neutral-300'
+                    }`}
+                  >
+                    <div className="font-medium">You provide</div>
+                  </button>
+                </div>
+              </div>
+
+              {/* Frequency Selection */}
+              <div>
+                <h3 className="text-lg font-semibold mb-4">How often?</h3>
+                <div className="space-y-3">
+                  {[
+                    { id: "One-time", name: "One-time clean", desc: "Perfect for end of tenancy or deep clean", price: normalPrice },
+                    { id: "Weekly", name: "Weekly", desc: "That clean home feeling on repeat", price: finalPrice, discount: true, popular: true },
+                    { id: "Fortnightly", name: "Fortnightly", desc: "Every 2 weeks", price: finalPrice }
+                  ].map((option) => (
+                    <button
+                      key={option.id}
+                      onClick={() => setSelectedFrequency(option.id)}
+                      className={`w-full p-4 rounded-lg border-2 text-left transition-all ${
+                        selectedFrequency === option.id
+                          ? 'border-blue-600 bg-blue-50'
+                          : 'border-neutral-200 hover:border-neutral-300'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <div className="font-medium">{option.name}</div>
+                          <div className="text-sm text-neutral-600">{option.desc}</div>
+                        </div>
+                        <div className="text-right">
+                          {option.discount ? (
+                            <div>
+                              <div className="text-sm text-neutral-500 line-through">£{normalPrice}</div>
+                              <div className="font-medium text-green-600">£{option.price}</div>
+                            </div>
+                          ) : (
+                            <div className="font-medium">£{option.price}</div>
+                          )}
+                          {option.popular && (
+                            <div className="flex gap-1 mt-1 justify-end">
+                              <span className="bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded">Best</span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+            
+            <div className="flex gap-4 justify-center mt-8">
+              <button
+                onClick={handleBack}
+                className="px-6 py-3 border border-neutral-300 rounded-lg font-medium hover:bg-neutral-50"
+              >
+                Back
+              </button>
+              <button
+                onClick={handleNext}
+                className="bg-blue-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-blue-700"
+              >
+                Continue
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Step 5: Customer Details */}
+        {currentStep === 5 && (
+          <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-8">
+            <h1 className="text-2xl font-bold text-neutral-900 mb-6">Your Details</h1>
+            <p className="text-neutral-600 mb-8">We&rsquo;ll use this information to contact you with your quote</p>
+            
+            <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-6">
+              <div className="grid gap-4 md:grid-cols-2">
+                <input
+                  type="text"
+                  placeholder="Your Name"
+                  value={customerDetails.name}
+                  onChange={(e) => setCustomerDetails({...customerDetails, name: e.target.value})}
+                  className="w-full border border-neutral-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  required
+                />
+                <input
+                  type="email"
+                  placeholder="Your Email"
+                  value={customerDetails.email}
+                  onChange={(e) => setCustomerDetails({...customerDetails, email: e.target.value})}
+                  className="w-full border border-neutral-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  required
+                />
+              </div>
+              
+              <div className="grid gap-4 md:grid-cols-2">
+                <input
+                  type="tel"
+                  placeholder="Your Phone"
+                  value={customerDetails.phone}
+                  onChange={(e) => setCustomerDetails({...customerDetails, phone: e.target.value})}
+                  className="w-full border border-neutral-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <input
+                  type="text"
+                  placeholder="Postcode"
+                  value={customerDetails.postcode || postcode}
+                  onChange={(e) => setCustomerDetails({...customerDetails, postcode: e.target.value})}
+                  className="w-full border border-neutral-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+
+              {/* Address Fields */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold text-neutral-900">Cleaning address</h3>
+                <input
+                  type="text"
+                  placeholder="Address line 1"
+                  className="w-full border border-neutral-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <input
+                  type="text"
+                  placeholder="Address line 2 (optional)"
+                  className="w-full border border-neutral-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <div className="grid gap-4 md:grid-cols-2">
+                  <input
+                    type="text"
+                    placeholder="City"
+                    className="w-full border border-neutral-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Postcode"
+                    value={customerDetails.postcode || postcode}
+                    onChange={(e) => setCustomerDetails({...customerDetails, postcode: e.target.value})}
+                    className="w-full border border-neutral-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+              </div>
+              
+              <textarea
+                placeholder="Any additional information about your cleaning needs?"
+                value={customerDetails.message}
+                onChange={(e) => setCustomerDetails({...customerDetails, message: e.target.value})}
+                rows={4}
+                className="w-full border border-neutral-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+
+              {/* Checkbox for updates */}
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  id="updates"
+                  className="w-4 h-4 text-blue-600 border-neutral-300 rounded focus:ring-blue-500"
+                />
+                <label htmlFor="updates" className="ml-2 text-sm text-neutral-700">
+                  Send me updates and special offers
+                </label>
+              </div>
+              
+              <div className="bg-neutral-50 rounded-lg p-4 text-left text-sm text-neutral-700">
+                <h3 className="font-semibold mb-2">Your Quote Summary:</h3>
+                <p><strong>Service:</strong> {services.find(s => s.id === selectedService)?.name || 'N/A'}</p>
+                <p><strong>Duration:</strong> {selectedDuration} hours</p>
+                <p><strong>Products:</strong> {selectedProducts}</p>
+                <p><strong>Frequency:</strong> {selectedFrequency}</p>
+                <p><strong>Bedrooms:</strong> {bedrooms}</p>
+                <p><strong>Bathrooms:</strong> {bathrooms}</p>
+                {extraTasks.length > 0 && <p><strong>Extra Tasks:</strong> {extraTasks.map(id => extraTaskOptions.find(t => t.id === id)?.name).join(', ')}</p>}
+                <p className="mt-2 text-lg font-bold text-blue-600">Total: £{finalPrice}</p>
+              </div>
+
+              <div className="flex gap-4 justify-center">
+                <button
+                  type="button"
+                  onClick={handleBack}
+                  className="px-6 py-3 border border-neutral-300 rounded-lg font-medium hover:bg-neutral-50"
+                >
+                  Back
+                </button>
+                <button
+                  type="submit"
+                  className="bg-blue-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-blue-700"
+                >
+                  Send My Quote Request
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

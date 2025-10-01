@@ -19,27 +19,27 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "KAAZHSCLEAN | We clean corners. We don’t cut them.",
-    template: "%s | KAAZHSCLEAN",
+    default: "Luxe Gleam | We clean corners. We don't cut them.",
+    template: "%s | Luxe Gleam",
   },
   description:
     "Professional cleaning services in London: End of Tenancy, After Builders, Deep, Residential, Office/Commercial.",
-  metadataBase: new URL("https://www.kaazhsclean.co.uk"),
+  metadataBase: new URL("https://www.luxegleam.co.uk"),
   openGraph: {
-    title: "KAAZHSCLEAN",
+    title: "Luxe Gleam",
     description:
       "Professional cleaning services in London: End of Tenancy, After Builders, Deep, Residential, Office/Commercial.",
     url: "/",
-    siteName: "KAAZHSCLEAN",
+    siteName: "Luxe Gleam",
     locale: "en_GB",
     type: "website",
     images: [
-      { url: "/images/favicon-512.png", width: 512, height: 512, alt: "KAAZHSCLEAN" },
+      { url: "/images/favicon-512.png", width: 512, height: 512, alt: "Luxe Gleam" },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "KAAZHSCLEAN",
+    title: "Luxe Gleam",
     description:
       "Professional cleaning services in London: End of Tenancy, After Builders, Deep, Residential, Office/Commercial.",
   },
@@ -61,14 +61,14 @@ export default function RootLayout({
         <header className="sticky top-0 z-50 border-b border-neutral-200 bg-white">
           <div className="mx-auto max-w-6xl px-4 py-3 md:py-4 flex items-center justify-between relative text-neutral-900">
             <Link href="/" className="flex items-center gap-3">
-              <Image
-                src="/logo.png"
-                alt="KAAZHSCLEAN"
-                width={256}
-                height={256}
-                priority
-                className="h-18 w-18 md:h-22 md:w-22 lg:h-24 lg:w-24 object-contain"
-              />
+                     <Image
+                       src="/logo.png"
+                       alt="Luxe Gleam"
+                       width={256}
+                       height={256}
+                       priority
+                       className="h-18 w-18 md:h-22 md:w-22 lg:h-24 lg:w-24 object-contain"
+                     />
               {/* Site name hidden per request */}
             </Link>
                 <Navigation />
@@ -84,8 +84,8 @@ export default function RootLayout({
         <main>{children}</main>
         <footer className="mt-12 md:mt-16 border-t border-neutral-200">
           <div className="mx-auto max-w-6xl px-4 py-8 md:py-12 grid gap-8 md:gap-10 md:grid-cols-3 text-sm">
-            <div className="space-y-2">
-              <div className="font-semibold">KAAZHSCLEAN</div>
+                   <div className="space-y-2">
+                     <div className="font-semibold">Luxe Gleam</div>
               <div>10 Wood St, London E17 3HT</div>
               <div>
                 <a href="tel:00923326666788" className="hover:underline">00923326666788</a> ·
@@ -129,7 +129,7 @@ export default function RootLayout({
               </form>
             </div>
           </div>
-          <div className="text-center text-xs text-neutral-500 pb-4 md:pb-6">© {new Date().getFullYear()} KAAZHSCLEAN.</div>
+                 <div className="text-center text-xs text-neutral-500 pb-4 md:pb-6">© {new Date().getFullYear()} Luxe Gleam.</div>
         </footer>
         <CookieBanner />
       </body>

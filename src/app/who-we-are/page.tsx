@@ -67,18 +67,18 @@ export default function WhoWeArePage() {
       <h1 className="text-2xl md:text-4xl font-semibold mb-3 md:mb-4">Who We Are</h1>
       <div className="grid gap-6 md:gap-8 md:grid-cols-5 md:items-start">
         <div className="md:col-span-3 space-y-4">
-          <p className="text-neutral-700 text-sm md:text-base">
-            KAAZHSCLEAN provides reliable, detail-focused cleaning services throughout London. Our trained
-            operatives deliver consistent quality across residential and commercial spaces. We believe in doing it
-            right the first time and every time.
-          </p>
+                 <p className="text-neutral-700 text-sm md:text-base">
+                   Luxe Gleam provides reliable, detail-focused cleaning services throughout London. Our trained
+                   operatives deliver consistent quality across residential and commercial spaces. We believe in doing it
+                   right the first time and every time.
+                 </p>
           <p className="text-neutral-700 text-sm md:text-base">
             With years of experience in the cleaning industry, we understand that every property is unique. 
             That&rsquo;s why we tailor our services to meet your specific needs, whether it&rsquo;s a one-time deep clean 
             or regular maintenance for your home or office.
           </p>
           <div className="space-y-3">
-            <h2 className="text-lg font-semibold">Why Choose KAAZHSCLEAN?</h2>
+                   <h2 className="text-lg font-semibold">Why Choose Luxe Gleam?</h2>
             <ul className="space-y-2 text-sm md:text-base text-neutral-700">
               <li className="flex items-start gap-2">
                 <svg className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
