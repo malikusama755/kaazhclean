@@ -233,10 +233,10 @@ function QuickQuoteContent() {
       <div className="mx-auto max-w-4xl px-4 py-8">
         {/* Progress Bar */}
         <div className="mb-8">
-          <div className="flex items-center justify-center space-x-4 mb-6">
+          <div className="flex items-center justify-center space-x-2 sm:space-x-4 mb-6 overflow-x-auto">
             {[1, 2, 3, 4, 5].map((step) => (
-              <div key={step} className="flex items-center">
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
+              <div key={step} className="flex items-center flex-shrink-0">
+                <div className={`w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs sm:text-sm font-medium ${
                   currentStep >= step 
                     ? 'bg-blue-600 text-white' 
                     : 'bg-neutral-200 text-neutral-600'
@@ -244,7 +244,7 @@ function QuickQuoteContent() {
                   {step}
                 </div>
                 {step < 5 && (
-                  <div className={`h-0.5 w-12 ${
+                  <div className={`h-0.5 w-6 sm:w-12 ${
                     currentStep > step ? 'bg-blue-600' : 'bg-neutral-200'
                   }`} />
                 )}
@@ -255,7 +255,7 @@ function QuickQuoteContent() {
 
         {/* Step 1: Customize Your Clean */}
         {currentStep === 1 && (
-          <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-8">
+          <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-4 sm:p-8">
             <h1 className="text-2xl font-bold text-neutral-900 mb-6">Customise your clean</h1>
             
             {/* Postcode Input */}
@@ -417,22 +417,22 @@ function QuickQuoteContent() {
             {/* Extra Tasks */}
             <div className="mb-8">
               <h3 className="text-lg font-medium text-neutral-900 mb-4">Extra tasks (optional)</h3>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
                 {extraTaskOptions.map((task) => (
                   <button
                     key={task.id}
                     type="button"
                     onClick={() => handleExtraTaskToggle(task.id)}
-                    className={`p-6 rounded-lg border-2 text-center transition-all hover:shadow-md ${
+                    className={`p-4 sm:p-6 rounded-lg border-2 text-center transition-all hover:shadow-md ${
                       extraTasks.includes(task.id)
                         ? 'border-blue-600 bg-blue-50'
                         : 'border-neutral-200 hover:border-neutral-300'
                     }`}
                   >
-                    <div className="flex justify-center mb-3">
+                    <div className="flex justify-center mb-2 sm:mb-3">
                       {task.icon}
                     </div>
-                    <div className="text-sm font-medium text-neutral-900">{task.name}</div>
+                    <div className="text-xs sm:text-sm font-medium text-neutral-900">{task.name}</div>
                   </button>
                 ))}
               </div>
@@ -456,15 +456,15 @@ function QuickQuoteContent() {
 
         {/* Step 2: Service Selection & Duration */}
         {currentStep === 2 && (
-          <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-8">
+          <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-4 sm:p-8">
             <h1 className="text-2xl font-bold text-neutral-900 mb-6">What type of clean do you need?</h1>
             
-            <div className="grid gap-4 md:grid-cols-2 mb-8">
+            <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 mb-8">
               {services.map((service) => (
                 <button
                   key={service.id}
                   onClick={() => setSelectedService(service.id)}
-                  className={`p-6 rounded-lg border-2 text-left transition-all hover:shadow-md ${
+                  className={`p-4 sm:p-6 rounded-lg border-2 text-left transition-all hover:shadow-md ${
                     selectedService === service.id
                       ? 'border-blue-600 bg-blue-50'
                       : 'border-neutral-200 hover:border-neutral-300'
@@ -473,9 +473,9 @@ function QuickQuoteContent() {
                   <div className="flex justify-center mb-3">
                     {service.icon}
                   </div>
-                  <h3 className="font-semibold text-lg mb-2">{service.name}</h3>
-                  <p className="text-sm text-neutral-600 mb-2">{service.desc}</p>
-                  <p className="text-blue-600 font-medium">{service.price}</p>
+                  <h3 className="font-semibold text-base sm:text-lg mb-2">{service.name}</h3>
+                  <p className="text-xs sm:text-sm text-neutral-600 mb-2">{service.desc}</p>
+                  <p className="text-blue-600 font-medium text-sm sm:text-base">{service.price}</p>
                 </button>
               ))}
             </div>
@@ -492,7 +492,7 @@ function QuickQuoteContent() {
                   </p>
                 </div>
                 
-                <div className="grid grid-cols-3 md:grid-cols-4 gap-3 max-w-2xl mx-auto">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 max-w-2xl mx-auto">
                   {durationOptions.map((duration) => (
                     <button
                       key={duration}
@@ -505,7 +505,8 @@ function QuickQuoteContent() {
                           : 'border-neutral-200 hover:border-neutral-300'
                       }`}
                     >
-                      {duration}
+                      <div className="font-medium text-sm sm:text-base">{duration}h</div>
+                      <div className="text-xs text-neutral-500">£{durationPrices[duration]}/h</div>
                     </button>
                   ))}
                 </div>
@@ -532,7 +533,7 @@ function QuickQuoteContent() {
 
         {/* Step 3: Time and Parking Selection */}
         {currentStep === 3 && (
-          <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-8">
+          <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-4 sm:p-8">
             <h1 className="text-2xl font-bold text-neutral-900 mb-6">What time would you like the cleaning team to arrive?</h1>
             
             <div className="space-y-3 mb-8">
@@ -597,7 +598,7 @@ function QuickQuoteContent() {
 
         {/* Step 4: Options Selection */}
         {currentStep === 4 && (
-          <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-8">
+          <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-4 sm:p-8">
             <h1 className="text-2xl font-bold text-neutral-900 mb-6">Customize Your Service</h1>
             <p className="text-neutral-600 mb-8">Choose your preferences and see the pricing</p>
             
@@ -694,7 +695,7 @@ function QuickQuoteContent() {
 
         {/* Step 5: Customer Details */}
         {currentStep === 5 && (
-          <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-8">
+          <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-4 sm:p-8">
             <h1 className="text-2xl font-bold text-neutral-900 mb-6">Your Details</h1>
             <p className="text-neutral-600 mb-8">We&rsquo;ll use this information to contact you with your quote</p>
             
