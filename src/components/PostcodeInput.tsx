@@ -30,7 +30,7 @@ export default function PostcodeInput() {
             value={postcode}
             onChange={(e) => setPostcode(e.target.value)}
             placeholder="e.g. SE9 6DR"
-            className="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-center text-base font-medium bg-white"
+            className="w-full px-4 py-3 border-2 border-neutral-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-center text-base font-medium bg-white text-neutral-900 placeholder-neutral-500"
             required
           />
         </div>
