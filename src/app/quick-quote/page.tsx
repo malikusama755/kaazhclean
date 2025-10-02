@@ -506,7 +506,7 @@ function QuickQuoteContent() {
                       }`}
                     >
                       <div className="font-medium text-sm sm:text-base">{duration}h</div>
-                      <div className="text-xs text-neutral-500">£{durationPrices[duration]}/h</div>
+                      <div className="text-xs text-neutral-500">£{durationPrices[duration as keyof typeof durationPrices]}/h</div>
                     </button>
                   ))}
                 </div>
