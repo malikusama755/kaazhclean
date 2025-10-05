@@ -12,6 +12,7 @@ import {
 function QuickQuoteContent() {
   const searchParams = useSearchParams();
   const [currentStep, setCurrentStep] = useState(1);
+  const [selectedService, setSelectedService] = useState("");
   const [selectedDuration, setSelectedDuration] = useState("2.0");
   const [selectedProducts, setSelectedProducts] = useState("We provide");
   const [selectedFrequency, setSelectedFrequency] = useState("Weekly");
@@ -200,7 +201,7 @@ function QuickQuoteContent() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const mailtoLink = `mailto:hikaazhsclean@gmail.com?subject=Quick Quote Request&body=Duration: ${selectedDuration} hours%0AProducts: ${selectedProducts}%0AFrequency: ${selectedFrequency}%0ABedrooms: ${bedrooms}%0ABathrooms: ${bathrooms}%0APostcode: ${postcode}%0AExtra Tasks: ${extraTasks.length > 0 ? extraTasks.join(', ') : 'None'}%0A%0APrice Breakdown:%0ABase cleaning: £${basePrice}%0A${productPrice > 0 ? 'Cleaning products: £' + productPrice + '%0A' : ''}${extraTaskPrice > 0 ? 'Extra tasks: £' + extraTaskPrice + '%0A' : ''}Subtotal: £${normalPrice}%0A${discount > 0 ? 'Discount: -£' + discount + '%0A' : ''}Total: £${finalPrice}%0A%0ACustomer Details:%0AName: ${customerDetails.name}%0AEmail: ${customerDetails.email}%0APhone: ${customerDetails.phone}%0APostcode: ${customerDetails.postcode}%0AMessage: ${customerDetails.message}`;
+    const mailtoLink = `mailto:hikaazhsclean@gmail.com?subject=Quick Quote Request - ${selectedService || 'Cleaning Service'}&body=Service: ${selectedService || 'Not specified'}%0ADuration: ${selectedDuration} hours%0AProducts: ${selectedProducts}%0AFrequency: ${selectedFrequency}%0ABedrooms: ${bedrooms}%0ABathrooms: ${bathrooms}%0APostcode: ${postcode}%0AExtra Tasks: ${extraTasks.length > 0 ? extraTasks.join(', ') : 'None'}%0A%0APrice Breakdown:%0ABase cleaning: £${basePrice}%0A${productPrice > 0 ? 'Cleaning products: £' + productPrice + '%0A' : ''}${extraTaskPrice > 0 ? 'Extra tasks: £' + extraTaskPrice + '%0A' : ''}Subtotal: £${normalPrice}%0A${discount > 0 ? 'Discount: -£' + discount + '%0A' : ''}Total: £${finalPrice}%0A%0ACustomer Details:%0AName: ${customerDetails.name}%0AEmail: ${customerDetails.email}%0APhone: ${customerDetails.phone}%0APostcode: ${customerDetails.postcode}%0AMessage: ${customerDetails.message}`;
     window.location.href = mailtoLink;
   };
   
@@ -272,6 +273,25 @@ function QuickQuoteContent() {
                     className="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base"
                     style={{ fontSize: "16px" }}
                   />
+                </div>
+
+                {/* Service Selection */}
+                <div className="mb-4 sm:mb-6">
+                  <label className="block text-sm font-medium text-neutral-700 mb-2">Service</label>
+                  <select
+                    value={selectedService}
+                    onChange={(e) => setSelectedService(e.target.value)}
+                    className="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-base"
+                    style={{ fontSize: "16px" }}
+                  >
+                    <option value="">—Please choose an option—</option>
+                    <option value="End of Tenancy Cleaning">End of Tenancy Cleaning</option>
+                    <option value="After Builders Cleaning">After Builders Cleaning</option>
+                    <option value="Deep Cleaning">Deep Cleaning</option>
+                    <option value="Residential Cleaning">Residential Cleaning</option>
+                    <option value="Office/Commercial Cleaning">Office/Commercial Cleaning</option>
+                    <option value="Other">Other</option>
+                  </select>
                 </div>
 
                 <hr className="my-4 sm:my-6" />
@@ -738,6 +758,12 @@ function QuickQuoteContent() {
                 <div className="bg-neutral-50 rounded-lg p-6 text-left text-sm text-neutral-700 mb-8">
                   <h3 className="font-semibold mb-4">Your Quote Summary:</h3>
                   <div className="grid gap-2">
+                    {selectedService && (
+                      <div className="flex justify-between">
+                        <span>Service:</span>
+                        <span>{selectedService}</span>
+                      </div>
+                    )}
                     <div className="flex justify-between">
                       <span>Duration:</span>
                       <span>{selectedDuration} hours</span>
