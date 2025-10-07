@@ -13,6 +13,9 @@ function QuickQuoteContent() {
   const searchParams = useSearchParams();
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedService, setSelectedService] = useState("");
+  const [propertyType, setPropertyType] = useState("Flat");
+  const [floors, setFloors] = useState(1);
+  const [commercialFrequency, setCommercialFrequency] = useState("");
   const [selectedDuration, setSelectedDuration] = useState("2.0");
   const [selectedProducts, setSelectedProducts] = useState("We provide");
   const [selectedFrequency, setSelectedFrequency] = useState("Weekly");
@@ -201,7 +204,21 @@ function QuickQuoteContent() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const mailtoLink = `mailto:hikaazhsclean@gmail.com?subject=Quick Quote Request - ${selectedService || 'Cleaning Service'}&body=Service: ${selectedService || 'Not specified'}%0ADuration: ${selectedDuration} hours%0AProducts: ${selectedProducts}%0AFrequency: ${selectedFrequency}%0ABedrooms: ${bedrooms}%0ABathrooms: ${bathrooms}%0APostcode: ${postcode}%0AExtra Tasks: ${extraTasks.length > 0 ? extraTasks.join(', ') : 'None'}%0A%0APrice Breakdown:%0ABase cleaning: £${basePrice}%0A${productPrice > 0 ? 'Cleaning products: £' + productPrice + '%0A' : ''}${extraTaskPrice > 0 ? 'Extra tasks: £' + extraTaskPrice + '%0A' : ''}Subtotal: £${normalPrice}%0A${discount > 0 ? 'Discount: -£' + discount + '%0A' : ''}Total: £${finalPrice}%0A%0ACustomer Details:%0AName: ${customerDetails.name}%0AEmail: ${customerDetails.email}%0APhone: ${customerDetails.phone}%0APostcode: ${customerDetails.postcode}%0AMessage: ${customerDetails.message}`;
+    
+    // Build email body based on service type
+    let serviceDetails = `Service: ${selectedService || 'Not specified'}%0A`;
+    
+    if (selectedService === "Office/Commercial Cleaning") {
+      serviceDetails += `Floors: ${floors}%0A`;
+      serviceDetails += `Frequency: ${commercialFrequency || 'Not specified'}%0A`;
+    } else if (selectedService && selectedService !== "Other") {
+      serviceDetails += `Property Type: ${propertyType}%0A`;
+      serviceDetails += `Bedrooms: ${bedrooms === 0 ? 'Studio' : bedrooms}%0A`;
+      serviceDetails += `Bathrooms: ${bathrooms}%0A`;
+      serviceDetails += `Frequency: ${selectedFrequency}%0A`;
+    }
+    
+    const mailtoLink = `mailto:hikaazhsclean@gmail.com?subject=Quick Quote Request - ${selectedService || 'Cleaning Service'}&body=${serviceDetails}Duration: ${selectedDuration} hours%0AProducts: ${selectedProducts}%0APostcode: ${postcode}%0AExtra Tasks: ${extraTasks.length > 0 ? extraTasks.join(', ') : 'None'}%0A%0APrice Breakdown:%0ABase cleaning: £${basePrice}%0A${productPrice > 0 ? 'Cleaning products: £' + productPrice + '%0A' : ''}${extraTaskPrice > 0 ? 'Extra tasks: £' + extraTaskPrice + '%0A' : ''}Subtotal: £${normalPrice}%0A${discount > 0 ? 'Discount: -£' + discount + '%0A' : ''}Total: £${finalPrice}%0A%0ACustomer Details:%0AName: ${customerDetails.name}%0AEmail: ${customerDetails.email}%0APhone: ${customerDetails.phone}%0APostcode: ${customerDetails.postcode}%0AMessage: ${customerDetails.message}`;
     window.location.href = mailtoLink;
   };
   
@@ -294,63 +311,158 @@ function QuickQuoteContent() {
                   </select>
                 </div>
 
-                <hr className="my-4 sm:my-6" />
+                {/* Show different fields based on service type */}
+                {selectedService && selectedService !== "Office/Commercial Cleaning" && (
+                  <>
+                    <hr className="my-4 sm:my-6" />
 
-                {/* Bedrooms Counter */}
-                <div className="mb-4 sm:mb-6">
-                  <label className="block text-sm font-medium text-neutral-700 mb-2">
-                    How many <strong>bedrooms</strong> need cleaning?
-                  </label>
-                  <div className="flex items-center border border-neutral-300 rounded-lg w-fit">
-                    <button
-                      type="button"
-                      onClick={() => setBedrooms(Math.max(1, bedrooms - 1))}
-                      className="px-3 sm:px-4 py-3 text-neutral-400 hover:text-neutral-600"
-                    >
-                      –
-                    </button>
-                    <span className="px-4 sm:px-6 py-3 text-neutral-900 font-medium text-sm sm:text-base">
-                      {bedrooms} {bedrooms === 1 ? 'bedroom' : 'bedrooms'}
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => setBedrooms(bedrooms + 1)}
-                      className="px-3 sm:px-4 py-3 text-neutral-400 hover:text-neutral-600"
-                    >
-                      +
-                    </button>
-                  </div>
-                </div>
+                    {/* Property Type - Only for residential services */}
+                    <div className="mb-4 sm:mb-6">
+                      <label className="block text-sm font-medium text-neutral-700 mb-2">
+                        Is the property a <strong>flat</strong> or <strong>house</strong>?
+                      </label>
+                      <div className="grid grid-cols-2 gap-4">
+                        <button
+                          type="button"
+                          onClick={() => setPropertyType("Flat")}
+                          className={`p-4 rounded-lg border-2 text-center transition-all ${
+                            propertyType === "Flat"
+                              ? 'border-blue-600 bg-blue-50'
+                              : 'border-neutral-200 hover:border-neutral-300'
+                          }`}
+                        >
+                          <div className="font-medium">Flat</div>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setPropertyType("House")}
+                          className={`p-4 rounded-lg border-2 text-center transition-all ${
+                            propertyType === "House"
+                              ? 'border-blue-600 bg-blue-50'
+                              : 'border-neutral-200 hover:border-neutral-300'
+                          }`}
+                        >
+                          <div className="font-medium">House</div>
+                        </button>
+                      </div>
+                    </div>
 
-                {/* Bathrooms Counter */}
-                <div className="mb-4 sm:mb-6">
-                  <label className="block text-sm font-medium text-neutral-700 mb-2">
-                    How many <strong>bathrooms</strong> need cleaning?
-                  </label>
-                  <div className="flex items-center border border-neutral-300 rounded-lg w-fit">
-                    <button
-                      type="button"
-                      onClick={() => setBathrooms(Math.max(1, bathrooms - 1))}
-                      className="px-3 sm:px-4 py-3 text-neutral-400 hover:text-neutral-600"
-                    >
-                      –
-                    </button>
-                    <span className="px-4 sm:px-6 py-3 text-neutral-900 font-medium text-sm sm:text-base">
-                      {bathrooms} {bathrooms === 1 ? 'bathroom' : 'bathrooms'}
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => setBathrooms(bathrooms + 1)}
-                      className="px-3 sm:px-4 py-3 text-neutral-400 hover:text-neutral-600"
-                    >
-                      +
-                    </button>
-                  </div>
-                </div>
+                    {/* Bedrooms Counter */}
+                    <div className="mb-4 sm:mb-6">
+                      <label className="block text-sm font-medium text-neutral-700 mb-2">
+                        How many <strong>bedrooms</strong> need cleaning?
+                      </label>
+                      <div className="flex items-center border border-neutral-300 rounded-lg w-fit">
+                        <button
+                          type="button"
+                          onClick={() => setBedrooms(Math.max(0, bedrooms - 1))}
+                          className="px-3 sm:px-4 py-3 text-neutral-400 hover:text-neutral-600"
+                        >
+                          –
+                        </button>
+                        <span className="px-4 sm:px-6 py-3 text-neutral-900 font-medium text-sm sm:text-base">
+                          {bedrooms === 0 ? 'Studio' : `${bedrooms} ${bedrooms === 1 ? 'bedroom' : 'bedrooms'}`}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => setBedrooms(bedrooms + 1)}
+                          className="px-3 sm:px-4 py-3 text-neutral-400 hover:text-neutral-600"
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
 
-                <p className="text-sm text-neutral-500 mb-4 sm:mb-6">
-                  Your cleaner will also clean your kitchen, lounge and common areas.
-                </p>
+                    {/* Bathrooms Counter */}
+                    <div className="mb-4 sm:mb-6">
+                      <label className="block text-sm font-medium text-neutral-700 mb-2">
+                        How many <strong>bathrooms</strong> need cleaning?
+                      </label>
+                      <div className="flex items-center border border-neutral-300 rounded-lg w-fit">
+                        <button
+                          type="button"
+                          onClick={() => setBathrooms(Math.max(0, bathrooms - 1))}
+                          className="px-3 sm:px-4 py-3 text-neutral-400 hover:text-neutral-600"
+                        >
+                          –
+                        </button>
+                        <span className="px-4 sm:px-6 py-3 text-neutral-900 font-medium text-sm sm:text-base">
+                          {bathrooms} {bathrooms === 1 ? 'bathroom' : 'bathrooms'}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => setBathrooms(bathrooms + 1)}
+                          className="px-3 sm:px-4 py-3 text-neutral-400 hover:text-neutral-600"
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
+
+                    <p className="text-sm text-neutral-500 mb-4 sm:mb-6">
+                      Your cleaner will also clean your kitchen, lounge and common areas.
+                    </p>
+                  </>
+                )}
+
+                {/* Office/Commercial specific fields */}
+                {selectedService === "Office/Commercial Cleaning" && (
+                  <>
+                    <hr className="my-4 sm:my-6" />
+
+                    {/* Office Size */}
+                    <div className="mb-4 sm:mb-6">
+                      <label className="block text-sm font-medium text-neutral-700 mb-2">
+                        How many <strong>floors/storeys</strong> does the property have?
+                      </label>
+                      <div className="flex items-center border border-neutral-300 rounded-lg w-fit">
+                        <button
+                          type="button"
+                          onClick={() => setFloors(Math.max(1, floors - 1))}
+                          className="px-3 sm:px-4 py-3 text-neutral-400 hover:text-neutral-600"
+                        >
+                          –
+                        </button>
+                        <span className="px-4 sm:px-6 py-3 text-neutral-900 font-medium text-sm sm:text-base">
+                          {floors} {floors === 1 ? 'floor' : 'floors'}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => setFloors(floors + 1)}
+                          className="px-3 sm:px-4 py-3 text-neutral-400 hover:text-neutral-600"
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Days per week */}
+                    <div className="mb-4 sm:mb-6">
+                      <label className="block text-sm font-medium text-neutral-700 mb-2">
+                        <strong>How often</strong> do you require a clean?
+                      </label>
+                      <select
+                        value={commercialFrequency}
+                        onChange={(e) => setCommercialFrequency(e.target.value)}
+                        className="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-base"
+                        style={{ fontSize: "16px" }}
+                      >
+                        <option value="">—Please choose an option—</option>
+                        <option value="Daily">Daily</option>
+                        <option value="5 days a week">5 days a week</option>
+                        <option value="3 days a week">3 days a week</option>
+                        <option value="2 days a week">2 days a week</option>
+                        <option value="Every week">Every week</option>
+                        <option value="Every 2 weeks">Every 2 weeks</option>
+                        <option value="One-off">One-off</option>
+                      </select>
+                    </div>
+
+                    <p className="text-sm text-neutral-500 mb-4 sm:mb-6">
+                      We provide tailored commercial cleaning solutions for offices, retail spaces, and commercial properties.
+                    </p>
+                  </>
+                )}
 
                 {/* Extra Tasks */}
                 <div className="mb-4 sm:mb-6">
@@ -764,6 +876,37 @@ function QuickQuoteContent() {
                         <span>{selectedService}</span>
                       </div>
                     )}
+                    {selectedService === "Office/Commercial Cleaning" ? (
+                      <>
+                        <div className="flex justify-between">
+                          <span>Floors:</span>
+                          <span>{floors}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Frequency:</span>
+                          <span>{commercialFrequency || 'Not specified'}</span>
+                        </div>
+                      </>
+                    ) : selectedService && selectedService !== "Other" ? (
+                      <>
+                        <div className="flex justify-between">
+                          <span>Property Type:</span>
+                          <span>{propertyType}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Bedrooms:</span>
+                          <span>{bedrooms === 0 ? 'Studio' : bedrooms}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Bathrooms:</span>
+                          <span>{bathrooms}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Frequency:</span>
+                          <span>{selectedFrequency}</span>
+                        </div>
+                      </>
+                    ) : null}
                     <div className="flex justify-between">
                       <span>Duration:</span>
                       <span>{selectedDuration} hours</span>
@@ -771,18 +914,6 @@ function QuickQuoteContent() {
                     <div className="flex justify-between">
                       <span>Products:</span>
                       <span>{selectedProducts}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Frequency:</span>
-                      <span>{selectedFrequency}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Bedrooms:</span>
-                      <span>{bedrooms}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Bathrooms:</span>
-                      <span>{bathrooms}</span>
                     </div>
                     {extraTasks.length > 0 && (
                       <div className="flex justify-between">
