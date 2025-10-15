@@ -5,8 +5,17 @@ import PostcodeInput from "@/components/PostcodeInput";
 export default function Home() {
   return (
     <div className="">
-      <section className="text-white" style={{ backgroundColor: '#00968a' }}>
-        <div className="mx-auto max-w-6xl px-4 py-12 md:py-24 grid gap-6 md:gap-8 md:grid-cols-2 md:items-center">
+      <section
+        className="relative text-white"
+        style={{
+          backgroundImage: "url(/images/herobg.jpg)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        {/* overlay for readability */}
+        <div className="absolute inset-0 bg-black/40" />
+        <div className="relative mx-auto max-w-6xl px-4 py-12 md:py-24 grid gap-6 md:gap-8 md:grid-cols-2 md:items-center">
           <div className="space-y-4">
             <h1 className="text-2xl sm:text-3xl md:text-5xl font-semibold leading-tight">
             Because Every Corner Deserves Luxury.
@@ -26,8 +35,9 @@ export default function Home() {
                      <PostcodeInput />
                    </div>
           </div>
-          <div className="relative aspect-[4/3] w-full rounded-lg overflow-hidden bg-neutral-800">
-            <Image src="/images/hero-1.jpg" alt="Cleaning hero" fill className="object-cover opacity-95" priority />
+          <div className="relative aspect-[4/3] w-full rounded-lg overflow-hidden bg-neutral-800 md:bg-transparent md:opacity-0 md:pointer-events-none">
+            {/* keep for layout on small screens; hidden on md+ to avoid duplicating bg */}
+            <Image src="/images/herobg.jpg" alt="Cleaning hero" fill className="object-cover opacity-95 md:opacity-0" priority />
             <div className="absolute bottom-3 left-3 right-3 flex flex-wrap gap-2">
               <span className="rounded-full bg-white text-neutral-900 px-3 py-1 text-xs font-medium">End of Tenancy</span>
               <span className="rounded-full bg-white/90 text-neutral-900 px-3 py-1 text-xs font-medium">After Builders</span>

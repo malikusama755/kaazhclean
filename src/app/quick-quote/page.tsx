@@ -18,7 +18,7 @@ function QuickQuoteContent() {
   const [commercialFrequency, setCommercialFrequency] = useState("");
   const [selectedDuration, setSelectedDuration] = useState("2.0");
   const [selectedProducts, setSelectedProducts] = useState("We provide");
-  const [selectedFrequency, setSelectedFrequency] = useState("Weekly");
+  const [selectedFrequency, setSelectedFrequency] = useState("Every week");
   const [bedrooms, setBedrooms] = useState(1);
   const [bathrooms, setBathrooms] = useState(1);
   const [postcode, setPostcode] = useState("");
@@ -93,25 +93,31 @@ function QuickQuoteContent() {
 
   const recommendedDuration = calculateRecommendedDuration();
 
-  // Calculate pricing
-  const durationPrices = {
-    "2.0": 39,
-    "2.5": 49,
-    "3.0": 59,
-    "3.5": 69,
-    "4.0": 79,
-    "4.5": 89,
-    "5.0": 99,
-    "5.5": 109,
-    "6.0": 119,
-    "6.5": 129,
-    "7.0": 139,
-    "7.5": 149,
-    "8.0": 159
+  // Calculate pricing based on service type
+  const getHourlyRate = () => {
+    switch (selectedService) {
+      case "Last Minute Cleaning":
+        return 30;
+      case "After Builders Cleaning":
+        return 25;
+      case "Deep Cleaning":
+        return 25;
+      case "Office/Commercial Cleaning":
+        return 20;
+      case "End of Tenancy Cleaning":
+        return 25;
+      case "Residential Cleaning":
+        return 20;
+      default:
+        return 20; // Default rate
+    }
   };
+
+  const hourlyRate = getHourlyRate();
+  const hours = parseFloat(selectedDuration);
+  const basePrice = hourlyRate * hours;
   
   const productPrice = selectedProducts === "We provide" ? 6 : 0;
-  const basePrice = durationPrices[selectedDuration as keyof typeof durationPrices] || 0;
   
   // Add extra task pricing
   const extraTaskPrice = extraTasks.length * 5; // £5 per extra task
@@ -122,13 +128,17 @@ function QuickQuoteContent() {
   let finalPrice = normalPrice;
   let discount = 0;
   
-  if (selectedFrequency === "Weekly") {
+  if (selectedFrequency === "Every week") {
     discount = Math.round(normalPrice * 0.67); // 67% discount for first clean
     finalPrice = normalPrice - discount;
-  } else if (selectedFrequency === "Fortnightly") {
+  } else if (selectedFrequency === "Every 2 weeks") {
     discount = Math.round(normalPrice * 0.3); // 30% discount
     finalPrice = normalPrice - discount;
+  } else if (selectedFrequency === "More than weekly") {
+    discount = Math.round(normalPrice * 0.7); // 70% discount for more than weekly
+    finalPrice = normalPrice - discount;
   }
+  // "One time" has no discount
   
   // Set page title and handle postcode parameter
   useEffect(() => {
@@ -141,6 +151,17 @@ function QuickQuoteContent() {
       setCustomerDetails(prev => ({ ...prev, postcode: postcodeParam }));
     }
   }, [searchParams]);
+
+  // Auto-select next day when Last Minute Cleaning is selected
+  useEffect(() => {
+    if (selectedService === "Last Minute Cleaning") {
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      setCurrentDate(tomorrow);
+      setSelectedDate(tomorrow.getDate().toString());
+      setSelectedFrequency("One time");
+    }
+  }, [selectedService]);
 
   const handleNext = () => {
     if (currentStep < 4) {
@@ -302,17 +323,18 @@ function QuickQuoteContent() {
                     style={{ fontSize: "16px" }}
                   >
                     <option value="">—Please choose an option—</option>
-                    <option value="End of Tenancy Cleaning">End of Tenancy Cleaning</option>
-                    <option value="After Builders Cleaning">After Builders Cleaning</option>
-                    <option value="Deep Cleaning">Deep Cleaning</option>
-                    <option value="Residential Cleaning">Residential Cleaning</option>
-                    <option value="Office/Commercial Cleaning">Office/Commercial Cleaning</option>
+                    <option value="End of Tenancy Cleaning">End of Tenancy Cleaning (£25/hr)</option>
+                    <option value="After Builders Cleaning">After Builders Cleaning (£25/hr)</option>
+                    <option value="Deep Cleaning">Deep Cleaning (£25/hr)</option>
+                    <option value="Residential Cleaning">Residential Cleaning (£20/hr)</option>
+                    <option value="Office/Commercial Cleaning">Office/Commercial Cleaning (£20/hr)</option>
+                    <option value="Last Minute Cleaning">Last Minute Cleaning (£30/hr)</option>
                     <option value="Other">Other</option>
                   </select>
                 </div>
 
                 {/* Show different fields based on service type */}
-                {selectedService && selectedService !== "Office/Commercial Cleaning" && (
+                {selectedService && selectedService !== "Office/Commercial Cleaning" && selectedService !== "Other" && (
                   <>
                     <hr className="my-4 sm:my-6" />
 
@@ -504,23 +526,29 @@ function QuickQuoteContent() {
                   </div>
                   
                   <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-3 max-w-4xl mx-auto">
-                    {durationOptions.map((duration) => (
-                      <button
-                        key={duration}
-                        type="button"
-                        onClick={() => setSelectedDuration(duration)}
-                        className={`p-2 sm:p-3 rounded-lg border-2 text-center transition-all ${
-                          selectedDuration === duration
-                            ? 'border-blue-600 bg-blue-600 text-white'
-                            : duration === recommendedDuration.toString()
-                            ? 'border-blue-300 bg-blue-50 text-blue-700'
-                            : 'border-neutral-200 hover:border-neutral-300'
-                        }`}
-                      >
-                        <div className="font-medium text-xs sm:text-sm lg:text-base">{duration}h</div>
-                        <div className="text-xs text-neutral-500 hidden sm:block">£{durationPrices[duration as keyof typeof durationPrices]}/h</div>
-                      </button>
-                    ))}
+                    {durationOptions.map((duration) => {
+                      const durationHours = parseFloat(duration);
+                      const price = hourlyRate * durationHours;
+                      return (
+                        <button
+                          key={duration}
+                          type="button"
+                          onClick={() => setSelectedDuration(duration)}
+                          className={`p-2 sm:p-3 rounded-lg border-2 text-center transition-all ${
+                            selectedDuration === duration
+                              ? 'border-blue-600 bg-blue-600 text-white'
+                              : duration === recommendedDuration.toString()
+                              ? 'border-blue-300 bg-blue-50 text-blue-700'
+                              : 'border-neutral-200 hover:border-neutral-300'
+                          }`}
+                        >
+                          <div className="font-medium text-xs sm:text-sm lg:text-base">{duration}h</div>
+                          <div className={`text-xs hidden sm:block ${selectedDuration === duration ? 'text-white' : 'text-neutral-500'}`}>
+                            £{price}
+                          </div>
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
 
@@ -720,7 +748,7 @@ function QuickQuoteContent() {
                 {/* Frequency Selection */}
                 <div className="mb-6">
                   <h3 className="text-lg font-semibold mb-4">How often?</h3>
-                  <div className="grid grid-cols-3 gap-2">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                     <button
                       type="button"
                       onClick={() => setSelectedFrequency("More than weekly")}
@@ -753,6 +781,17 @@ function QuickQuoteContent() {
                       }`}
                     >
                       <div className="font-medium text-sm">Every 2 weeks</div>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedFrequency("One time")}
+                      className={`p-3 rounded-lg border-2 text-center transition-all ${
+                        selectedFrequency === "One time"
+                          ? 'border-blue-600 bg-blue-600 text-white'
+                          : 'border-neutral-200 bg-white text-neutral-700 hover:border-neutral-300'
+                      }`}
+                    >
+                      <div className="font-medium text-sm">One time</div>
                     </button>
                   </div>
                 </div>

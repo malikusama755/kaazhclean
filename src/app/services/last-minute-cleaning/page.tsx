@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata = {
   title: "Last Minute Cleaning",
-  description: "Same-day emergency cleaning service in London. Available for urgent cleaning needs, property viewings, and unexpected guests.",
+  description: "Emergency same-day cleaning service in London. Fast, reliable cleaning when you need it most - available on short notice.",
 };
 
 export default function LastMinuteCleaningPage() {
@@ -14,7 +14,7 @@ export default function LastMinuteCleaningPage() {
           <h1 className="text-3xl md:text-4xl font-semibold">Last Minute Cleaning</h1>
           <div className="text-2xl font-bold text-blue-600">from £30/hour</div>
           <p className="text-lg text-neutral-600">
-            Need cleaning urgently? Our last minute cleaning service is available for same-day bookings. Perfect for unexpected guests, property viewings, or emergency cleaning needs.
+            Emergency same-day cleaning service for when you need professional cleaning fast. Perfect for unexpected guests, last-minute viewings, or urgent situations.
           </p>
           <div className="space-y-4">
             <h2 className="text-xl font-semibold">What&rsquo;s Included</h2>
@@ -23,31 +23,31 @@ export default function LastMinuteCleaningPage() {
                 <svg className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
                 </svg>
-                Same-day availability
+                Same-day service available
               </li>
               <li className="flex items-start gap-2">
                 <svg className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
                 </svg>
-                Emergency response within 2-4 hours
+                Priority booking
               </li>
               <li className="flex items-start gap-2">
                 <svg className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
                 </svg>
-                All cleaning supplies provided
+                Fast, efficient cleaning
               </li>
               <li className="flex items-start gap-2">
                 <svg className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
                 </svg>
-                Professional equipment and techniques
+                All essential areas covered
               </li>
               <li className="flex items-start gap-2">
                 <svg className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
                 </svg>
-                Flexible scheduling
+                Professional cleaning equipment provided
               </li>
             </ul>
           </div>
@@ -55,10 +55,10 @@ export default function LastMinuteCleaningPage() {
             <h2 className="text-xl font-semibold">Perfect For</h2>
             <ul className="space-y-2 text-neutral-600">
               <li>• Unexpected guests arriving</li>
-              <li>• Property viewings at short notice</li>
-              <li>• Emergency cleaning situations</li>
-              <li>• Same-day move-in/move-out</li>
-              <li>• Last-minute event preparation</li>
+              <li>• Last-minute property viewings</li>
+              <li>• Emergency clean-ups</li>
+              <li>• Event preparation</li>
+              <li>• Move-in/move-out urgencies</li>
             </ul>
           </div>
           <div className="flex flex-wrap gap-4">
