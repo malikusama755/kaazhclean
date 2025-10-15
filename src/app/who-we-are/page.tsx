@@ -12,7 +12,7 @@ export default function WhoWeArePage() {
       rating: 5,
       date: "2 weeks ago",
       service: "End of Tenancy Cleaning",
-      review: "Exceptional end of tenancy cleaning service. The team was punctual, thorough, and left our flat spotless. Highly recommend KAAZHSCLEAN for their attention to detail.",
+      review: "Exceptional end of tenancy cleaning service. The team was punctual, thorough, and left our flat spotless. Highly recommend Luxe Gleam for their attention to detail.",
       verified: true
     },
     {
@@ -177,7 +177,7 @@ export default function WhoWeArePage() {
             <a href="/quick-quote" className="inline-flex items-center rounded bg-blue-600 text-white px-6 py-3 font-medium hover:bg-blue-700">
               Get Your Quote
             </a>
-            <a href="tel:00923326666788" className="inline-flex items-center rounded border border-neutral-300 px-6 py-3 font-medium hover:bg-neutral-50">
+            <a href="tel:07450153844" className="inline-flex items-center rounded border border-neutral-300 px-6 py-3 font-medium hover:bg-neutral-50">
               Call Us Now
             </a>
           </div>

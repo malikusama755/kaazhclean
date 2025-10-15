@@ -26,8 +26,8 @@ export default function Home() {
                    <div className="flex flex-wrap gap-2 sm:gap-3">
                      <Link href="/quick-quote" className="inline-flex items-center rounded bg-white text-neutral-900 px-4 sm:px-5 py-2.5 sm:py-3 font-medium hover:bg-neutral-100 w-full sm:w-auto justify-center">Get Started</Link>
                      <Link href="/services" className="inline-flex items-center rounded border border-white/30 px-4 sm:px-5 py-2.5 sm:py-3 font-medium hover:bg-white/10 w-full sm:w-auto justify-center">Our Services</Link>
-                     <a href="tel:00923326666788" className="inline-flex items-center rounded border border-white/30 px-4 sm:px-5 py-2.5 sm:py-3 font-medium hover:bg-white/10 w-full sm:w-auto justify-center">Call</a>
-                     <a href="mailto:hikaazhsclean@gmail.com" className="inline-flex items-center rounded border border-white/30 px-4 sm:px-5 py-2.5 sm:py-3 font-medium hover:bg-white/10 w-full sm:w-auto justify-center">Email</a>
+                     <a href="tel:07450153844" className="inline-flex items-center rounded border border-white/30 px-4 sm:px-5 py-2.5 sm:py-3 font-medium hover:bg-white/10 w-full sm:w-auto justify-center">Call</a>
+                     <a href="mailto:luxegleam.uk@gmail.com" className="inline-flex items-center rounded border border-white/30 px-4 sm:px-5 py-2.5 sm:py-3 font-medium hover:bg-white/10 w-full sm:w-auto justify-center">Email</a>
                    </div>
                    
                    {/* Postcode Input in Hero */}
@@ -117,7 +117,7 @@ export default function Home() {
               </div>
               <div className="p-4 md:p-6">
                 <h3 className="text-xl md:text-2xl font-bold text-blue-600 mb-2">Domestic Cleaning</h3>
-                <div className="text-lg md:text-xl font-semibold text-blue-600 mb-3 md:mb-4">from £18/h</div>
+                <div className="text-lg md:text-xl font-semibold text-blue-600 mb-3 md:mb-4">from £20/h</div>
                        <p className="text-sm md:text-base text-neutral-600 mb-3 md:mb-4">
                          Luxe Gleam provides either one-off home cleaning or regular domestic packages. With our service, you can enjoy all the benefits of professional cleaners while paying a fair price to get a spotless home.
                        </p>
@@ -192,7 +192,7 @@ export default function Home() {
               </div>
               <div className="p-4 md:p-6">
                 <h3 className="text-xl md:text-2xl font-bold text-blue-600 mb-2">Deep Cleaning</h3>
-                <div className="text-lg md:text-xl font-semibold text-blue-600 mb-3 md:mb-4">from £22/h</div>
+                <div className="text-lg md:text-xl font-semibold text-blue-600 mb-3 md:mb-4">from £25/h</div>
                 <p className="text-sm md:text-base text-neutral-600 mb-3 md:mb-4">
                   Intensive deep cleaning service for homes that need extra attention. We tackle every corner, surface, and hidden area to give your property a thorough, professional clean.
                 </p>
@@ -217,7 +217,7 @@ export default function Home() {
               </div>
               <div className="p-4 md:p-6">
                 <h3 className="text-xl md:text-2xl font-bold text-blue-600 mb-2">After Builders</h3>
-                <div className="text-lg md:text-xl font-semibold text-blue-600 mb-3 md:mb-4">from £24/h</div>
+                <div className="text-lg md:text-xl font-semibold text-blue-600 mb-3 md:mb-4">from £25/h</div>
                 <p className="text-sm md:text-base text-neutral-600 mb-3 md:mb-4">
                   Specialized cleaning after construction or renovation work. We remove all construction dust, debris, and residue to make your property move-in ready.
                 </p>
@@ -300,7 +300,7 @@ export default function Home() {
                 </div>
               </div>
               <p className="text-neutral-700 text-sm leading-relaxed">
-                &ldquo;Exceptional end of tenancy cleaning service. The team was punctual, thorough, and left our flat spotless. Highly recommend KAAZHSCLEAN for their attention to detail.&rdquo;
+                &ldquo;Exceptional end of tenancy cleaning service. The team was punctual, thorough, and left our flat spotless. Highly recommend Luxe Gleam for their attention to detail.&rdquo;
               </p>
             </div>
 

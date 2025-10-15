@@ -124,21 +124,8 @@ function QuickQuoteContent() {
   
   const normalPrice = basePrice + productPrice + extraTaskPrice;
   
-  // Apply discounts
-  let finalPrice = normalPrice;
-  let discount = 0;
-  
-  if (selectedFrequency === "Every week") {
-    discount = Math.round(normalPrice * 0.67); // 67% discount for first clean
-    finalPrice = normalPrice - discount;
-  } else if (selectedFrequency === "Every 2 weeks") {
-    discount = Math.round(normalPrice * 0.3); // 30% discount
-    finalPrice = normalPrice - discount;
-  } else if (selectedFrequency === "More than weekly") {
-    discount = Math.round(normalPrice * 0.7); // 70% discount for more than weekly
-    finalPrice = normalPrice - discount;
-  }
-  // "One time" has no discount
+  // No discounts applied
+  const finalPrice = normalPrice;
   
   // Set page title and handle postcode parameter
   useEffect(() => {
@@ -239,7 +226,7 @@ function QuickQuoteContent() {
       serviceDetails += `Frequency: ${selectedFrequency}%0A`;
     }
     
-    const mailtoLink = `mailto:hikaazhsclean@gmail.com?subject=Quick Quote Request - ${selectedService || 'Cleaning Service'}&body=${serviceDetails}Duration: ${selectedDuration} hours%0AProducts: ${selectedProducts}%0APostcode: ${postcode}%0AExtra Tasks: ${extraTasks.length > 0 ? extraTasks.join(', ') : 'None'}%0A%0APrice Breakdown:%0ABase cleaning: £${basePrice}%0A${productPrice > 0 ? 'Cleaning products: £' + productPrice + '%0A' : ''}${extraTaskPrice > 0 ? 'Extra tasks: £' + extraTaskPrice + '%0A' : ''}Subtotal: £${normalPrice}%0A${discount > 0 ? 'Discount: -£' + discount + '%0A' : ''}Total: £${finalPrice}%0A%0ACustomer Details:%0AName: ${customerDetails.name}%0AEmail: ${customerDetails.email}%0APhone: ${customerDetails.phone}%0APostcode: ${customerDetails.postcode}%0AMessage: ${customerDetails.message}`;
+    const mailtoLink = `mailto:luxegleam.uk@gmail.com?subject=Quick Quote Request - ${selectedService || 'Cleaning Service'}&body=${serviceDetails}Duration: ${selectedDuration} hours%0AProducts: ${selectedProducts}%0APostcode: ${postcode}%0AExtra Tasks: ${extraTasks.length > 0 ? extraTasks.join(', ') : 'None'}%0A%0APrice Breakdown:%0ABase cleaning: £${basePrice}%0A${productPrice > 0 ? 'Cleaning products: £' + productPrice + '%0A' : ''}${extraTaskPrice > 0 ? 'Extra tasks: £' + extraTaskPrice + '%0A' : ''}Total: £${finalPrice}%0A%0ACustomer Details:%0AName: ${customerDetails.name}%0AEmail: ${customerDetails.email}%0APhone: ${customerDetails.phone}%0APostcode: ${customerDetails.postcode}%0AMessage: ${customerDetails.message}`;
     window.location.href = mailtoLink;
   };
   
@@ -968,6 +955,28 @@ function QuickQuoteContent() {
                       <span>Time:</span>
                       <span>{selectedTimeSlot || 'Not selected'}</span>
                     </div>
+                  </div>
+                  
+                  <hr className="my-4" />
+                  
+                  <div className="space-y-2">
+                    <h3 className="font-semibold mb-3">Price Breakdown:</h3>
+                    <div className="flex justify-between text-sm">
+                      <span>Base cleaning ({selectedDuration}h × £{hourlyRate}/hr):</span>
+                      <span>£{basePrice}</span>
+                    </div>
+                    {productPrice > 0 && (
+                      <div className="flex justify-between text-sm">
+                        <span>Cleaning products:</span>
+                        <span>£{productPrice}</span>
+                      </div>
+                    )}
+                    {extraTaskPrice > 0 && (
+                      <div className="flex justify-between text-sm">
+                        <span>Extra tasks ({extraTasks.length} × £5):</span>
+                        <span>£{extraTaskPrice}</span>
+                      </div>
+                    )}
                   </div>
                   
                   <hr className="my-4" />

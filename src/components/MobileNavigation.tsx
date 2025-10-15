@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -14,6 +14,11 @@ export default function MobileNavigation() {
     { href: '/reviews', label: 'Reviews' },
     { href: '/contact', label: 'Contact' },
   ]
+
+  // Close menu when pathname changes (route navigation)
+  useEffect(() => {
+    setOpen(false)
+  }, [pathname])
 
   return (
     <div className="md:hidden text-neutral-900">
@@ -56,7 +61,7 @@ export default function MobileNavigation() {
                 Quick Quote
               </Link>
               <a
-                href="tel:00923326666788"
+                href="tel:07450153844"
                 onClick={() => setOpen(false)}
                 className="inline-flex items-center justify-center gap-2 rounded border border-neutral-300 px-4 py-2 w-full hover:bg-neutral-50 text-neutral-900"
               >

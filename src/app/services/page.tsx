@@ -26,12 +26,12 @@ export default function ServicesPage() {
         <div className="grid gap-6 md:grid-cols-3 max-w-4xl mx-auto">
           <div className="bg-neutral-50 rounded-lg p-6 text-center">
             <h3 className="text-xl font-semibold mb-2">Weekly</h3>
-            <div className="text-3xl font-bold text-blue-600 mb-2">from £18/hr</div>
+            <div className="text-3xl font-bold text-blue-600 mb-2">from £20/hr</div>
             <p className="text-sm text-neutral-600">Minimum 2 hours. Same cleaner where possible.</p>
           </div>
           <div className="bg-neutral-50 rounded-lg p-6 text-center">
             <h3 className="text-xl font-semibold mb-2">Bi-Weekly</h3>
-            <div className="text-3xl font-bold text-blue-600 mb-2">from £19/hr</div>
+            <div className="text-3xl font-bold text-blue-600 mb-2">from £20/hr</div>
             <p className="text-sm text-neutral-600">Flexible rescheduling up to 24h before.</p>
           </div>
           <div className="bg-neutral-50 rounded-lg p-6 text-center">

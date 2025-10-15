@@ -1,6 +1,6 @@
 export const metadata = {
   title: "Customer Reviews",
-  description: "Read what our customers say about KAAZHSCLEAN's professional cleaning services in London.",
+  description: "Read what our customers say about Luxe Gleam's professional cleaning services in London.",
 };
 
 export default function ReviewsPage() {
@@ -11,7 +11,7 @@ export default function ReviewsPage() {
       rating: 5,
       date: "2 weeks ago",
       service: "End of Tenancy Cleaning",
-      review: "Exceptional end of tenancy cleaning service. The team was punctual, thorough, and left our flat spotless. Highly recommend KAAZHSCLEAN for their attention to detail.",
+      review: "Exceptional end of tenancy cleaning service. The team was punctual, thorough, and left our flat spotless. Highly recommend Luxe Gleam for their attention to detail.",
       verified: true
     },
     {
@@ -158,12 +158,12 @@ export default function ReviewsPage() {
       {/* Call to Action */}
       <div className="mt-16 text-center bg-neutral-50 rounded-lg p-8">
         <h2 className="text-2xl font-semibold mb-4">Ready to Experience Our Service?</h2>
-        <p className="text-neutral-600 mb-6">Join hundreds of satisfied customers who trust KAAZHSCLEAN for their cleaning needs.</p>
+        <p className="text-neutral-600 mb-6">Join hundreds of satisfied customers who trust Luxe Gleam for their cleaning needs.</p>
         <div className="flex flex-wrap gap-4 justify-center">
           <a href="/quick-quote" className="inline-flex items-center rounded bg-neutral-900 text-white px-6 py-3 font-medium hover:bg-neutral-800">
             Get Your Quote
           </a>
-          <a href="tel:00923326666788" className="inline-flex items-center rounded border border-neutral-300 px-6 py-3 font-medium hover:bg-neutral-50">
+          <a href="tel:07450153844" className="inline-flex items-center rounded border border-neutral-300 px-6 py-3 font-medium hover:bg-neutral-50">
             Call Us Now
           </a>
         </div>
