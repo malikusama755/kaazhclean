@@ -19,7 +19,6 @@ export default function PostcodeInput() {
     <div className="bg-white/95 backdrop-blur-sm rounded-xl shadow-lg border border-white/20 p-6 max-w-md mx-auto">
       <div className="text-center mb-6">
         <h3 className="text-xl font-bold text-neutral-900 mb-2">Get Your Quote</h3>
-        <p className="text-neutral-600 text-sm">Enter your postcode to get started</p>
       </div>
       
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -29,7 +28,7 @@ export default function PostcodeInput() {
             id="postcode"
             value={postcode}
             onChange={(e) => setPostcode(e.target.value)}
-            placeholder="e.g. SE9 6DR"
+            placeholder="Enter your postcode"
             className="w-full px-4 py-3 border-2 border-neutral-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-center text-base font-medium bg-white text-neutral-900 placeholder-neutral-500"
             required
           />

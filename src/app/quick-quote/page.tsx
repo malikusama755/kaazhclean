@@ -294,7 +294,7 @@ function QuickQuoteContent() {
                     type="text"
                     value={postcode}
                     onChange={(e) => setPostcode(e.target.value)}
-                    placeholder="e.g. SE9 6DR"
+                    placeholder="Enter your postcode"
                     className="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base"
                     style={{ fontSize: "16px" }}
                   />
@@ -555,7 +555,7 @@ function QuickQuoteContent() {
                           : 'border-neutral-200 hover:border-neutral-300'
                       }`}
                     >
-                      <div className="font-medium">Bring cleaning products</div>
+                      <div className="font-medium">Bring cleaning products 6£</div>
                     </button>
                     <button
                       type="button"
