@@ -139,14 +139,21 @@ function QuickQuoteContent() {
     }
   }, [searchParams]);
 
-  // Auto-select next day when Last Minute Cleaning is selected
+  // Auto-select appropriate date based on service type
   useEffect(() => {
     if (selectedService === "Last Minute Cleaning") {
+      // Last Minute Cleaning: next day
       const tomorrow = new Date();
       tomorrow.setDate(tomorrow.getDate() + 1);
       setCurrentDate(tomorrow);
       setSelectedDate(tomorrow.getDate().toString());
       setSelectedFrequency("One time");
+    } else if (selectedService && selectedService !== "Other") {
+      // All other services: 2 days later
+      const dayAfterTomorrow = new Date();
+      dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 2);
+      setCurrentDate(dayAfterTomorrow);
+      setSelectedDate(dayAfterTomorrow.getDate().toString());
     }
   }, [selectedService]);
 

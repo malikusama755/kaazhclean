@@ -23,29 +23,13 @@ export default function Home() {
             <p className="text-neutral-200 text-sm md:text-base">
               Experience a service where every detail matters. Professional cleaning services across London.
             </p>
-                   <div className="flex flex-wrap gap-2 sm:gap-3">
-                     <Link href="/quick-quote" className="inline-flex items-center rounded bg-white text-neutral-900 px-4 sm:px-5 py-2.5 sm:py-3 font-medium hover:bg-neutral-100 w-full sm:w-auto justify-center">Get Started</Link>
-                     <Link href="/services" className="inline-flex items-center rounded border border-white/30 px-4 sm:px-5 py-2.5 sm:py-3 font-medium hover:bg-white/10 w-full sm:w-auto justify-center">Our Services</Link>
-                     <a href="tel:07450153844" className="inline-flex items-center rounded border border-white/30 px-4 sm:px-5 py-2.5 sm:py-3 font-medium hover:bg-white/10 w-full sm:w-auto justify-center">Call</a>
-                     <a href="mailto:luxegleam.uk@gmail.com" className="inline-flex items-center rounded border border-white/30 px-4 sm:px-5 py-2.5 sm:py-3 font-medium hover:bg-white/10 w-full sm:w-auto justify-center">Email</a>
-                   </div>
-                   
+                
                    {/* Postcode Input in Hero */}
                    <div className="mt-8">
                      <PostcodeInput />
                    </div>
           </div>
-          <div className="relative aspect-[4/3] w-full rounded-lg overflow-hidden bg-neutral-800 md:bg-transparent md:opacity-0 md:pointer-events-none">
-            {/* keep for layout on small screens; hidden on md+ to avoid duplicating bg */}
-            <Image src="/images/herobg.jpg" alt="Cleaning hero" fill className="object-cover opacity-95 md:opacity-0" priority />
-            <div className="absolute bottom-3 left-3 right-3 flex flex-wrap gap-2">
-              <span className="rounded-full bg-white text-neutral-900 px-3 py-1 text-xs font-medium">End of Tenancy</span>
-              <span className="rounded-full bg-white/90 text-neutral-900 px-3 py-1 text-xs font-medium">After Builders</span>
-              <span className="rounded-full bg-white/90 text-neutral-900 px-3 py-1 text-xs font-medium">Deep Clean</span>
-              <span className="rounded-full bg-white/90 text-neutral-900 px-3 py-1 text-xs font-medium">Residential</span>
-              <span className="rounded-full bg-white/90 text-neutral-900 px-3 py-1 text-xs font-medium">Office</span>
-            </div>
-          </div>
+         
         </div>
       </section>
 
