@@ -234,7 +234,6 @@ function QuickQuoteContent() {
       emailBody += `Property Type: ${propertyType}%0A`;
       emailBody += `Bedrooms: ${bedrooms === 0 ? 'Studio' : bedrooms}%0A`;
       emailBody += `Bathrooms: ${bathrooms}%0A`;
-      emailBody += `Frequency: ${selectedFrequency}%0A`;
     }
     
     // Products and extras
@@ -251,10 +250,12 @@ function QuickQuoteContent() {
     emailBody += `%0ASCHEDULING:%0A`;
     emailBody += `Selected Date: ${selectedDate}%0A`;
     emailBody += `Time Slot: ${selectedTimeSlot || 'Not selected'}%0A`;
+    emailBody += `Frequency: ${selectedService === "Office/Commercial Cleaning" ? commercialFrequency : selectedFrequency}%0A`;
+    emailBody += `Current Date Context: ${currentDate.toLocaleDateString()}%0A`;
     
     // Location
     emailBody += `%0ALOCATION:%0A`;
-    emailBody += `Postcode: ${postcode}%0A`;
+    emailBody += `Postcode: ${postcode || customerDetails.postcode || 'Not provided'}%0A`;
     
     // Price breakdown
     emailBody += `%0APRICE BREAKDOWN:%0A`;
@@ -272,10 +273,14 @@ function QuickQuoteContent() {
     emailBody += `Name: ${customerDetails.name}%0A`;
     emailBody += `Email: ${customerDetails.email}%0A`;
     emailBody += `Phone: ${customerDetails.phone}%0A`;
-    emailBody += `Postcode: ${customerDetails.postcode}%0A`;
     if (customerDetails.message) {
       emailBody += `Message: ${customerDetails.message}%0A`;
     }
+    
+    // Quote metadata
+    emailBody += `%0AQUOTE METADATA:%0A`;
+    emailBody += `Quote Generated: ${new Date().toLocaleString()}%0A`;
+    emailBody += `Quote ID: ${Date.now()}%0A`;
     
     const mailtoLink = `mailto:luxegleam.uk@gmail.com?subject=Quick Quote Request - ${selectedService || 'Cleaning Service'}&body=${emailBody}`;
     window.location.href = mailtoLink;
