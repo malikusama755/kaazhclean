@@ -156,11 +156,11 @@ function QuickQuoteContent() {
       setSelectedDate(tomorrow.getDate().toString());
       setSelectedFrequency("One time");
     } else if (selectedService && selectedService !== "Other") {
-      // All other services: 2 days later
-      const dayAfterTomorrow = new Date();
-      dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 2);
-      setCurrentDate(dayAfterTomorrow);
-      setSelectedDate(dayAfterTomorrow.getDate().toString());
+      // All other services: 3 days later
+      const threeDaysLater = new Date();
+      threeDaysLater.setDate(threeDaysLater.getDate() + 3);
+      setCurrentDate(threeDaysLater);
+      setSelectedDate(threeDaysLater.getDate().toString());
     }
   }, [selectedService]);
 
@@ -178,6 +178,13 @@ function QuickQuoteContent() {
       // Auto scroll to top
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+  };
+
+  const handleSwitchToLastMinute = () => {
+    setSelectedService("Last Minute Cleaning");
+    setCurrentStep(1);
+    // Auto scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
   
   const handleExtraTaskToggle = (taskId: string) => {
@@ -213,16 +220,29 @@ function QuickQuoteContent() {
     
     const weekDates = [];
     const dayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Reset time to start of day for comparison
+    
+    // Calculate minimum date based on service type
+    const minDate = selectedService === "Last Minute Cleaning" 
+      ? new Date(today.getTime() + 24 * 60 * 60 * 1000) // Tomorrow for Last Minute
+      : new Date(today.getTime() + 3 * 24 * 60 * 60 * 1000); // 3 days later for other services
+    minDate.setHours(0, 0, 0, 0);
     
     for (let i = 0; i < 7; i++) {
       const date = new Date(startOfWeek);
       date.setDate(startOfWeek.getDate() + i);
-      weekDates.push({
-        day: dayNames[i],
-        date: date.getDate().toString(),
-        fullDate: date,
-        isToday: date.toDateString() === new Date().toDateString()
-      });
+      date.setHours(0, 0, 0, 0); // Reset time for comparison
+      
+      // Only show dates that are at or after the minimum date
+      if (date >= minDate) {
+        weekDates.push({
+          day: dayNames[i],
+          date: date.getDate().toString(),
+          fullDate: date,
+          isToday: date.toDateString() === new Date().toDateString()
+        });
+      }
     }
     
     return weekDates;
@@ -263,7 +283,34 @@ function QuickQuoteContent() {
     // Scheduling details
     emailBody += `SCHEDULING:\n`;
     emailBody += `Selected Date: ${selectedDate}\n`;
-    emailBody += `Time Slot: ${selectedTimeSlot || 'Not selected'}\n`;
+    
+    // Convert time slot to readable format
+    let timeDisplay = 'Not selected';
+    if (selectedTimeSlot) {
+      switch(selectedTimeSlot) {
+        case 'daytime':
+          timeDisplay = 'Daytime (09:00 - 17:00)';
+          break;
+        case 'morning-1':
+          timeDisplay = 'Morning (09:00 - 12:00)';
+          break;
+        case 'morning-2':
+          timeDisplay = 'Morning (11:00 - 12:00)';
+          break;
+        case 'afternoon-1':
+          timeDisplay = 'Afternoon (12:00 - 17:00)';
+          break;
+        case 'afternoon-2':
+          timeDisplay = 'Afternoon (12:00 - 13:00)';
+          break;
+        case 'afternoon-3':
+          timeDisplay = 'Afternoon (17:00 - 18:00)';
+          break;
+        default:
+          timeDisplay = selectedTimeSlot;
+      }
+    }
+    emailBody += `Time Slot: ${timeDisplay}\n`;
     emailBody += `Frequency: ${selectedService === "Office/Commercial Cleaning" ? commercialFrequency : selectedFrequency}\n\n`;
     
     // Location
@@ -657,6 +704,26 @@ function QuickQuoteContent() {
               <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-4 sm:p-6">
                 <h1 className="text-xl sm:text-2xl font-bold text-neutral-900 mb-4 sm:mb-6">Choose your time</h1>
                 
+                {/* Last Minute Cleaning Option - Always at top */}
+                {selectedService !== "Last Minute Cleaning" && (
+                  <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                    <div className="text-center">
+                      <p className="text-sm text-blue-800 mb-3">
+                        Need cleaning sooner than 3 days? 
+                      </p>
+                      <button
+                        onClick={handleSwitchToLastMinute}
+                        className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
+                      >
+                        Switch to Last Minute Cleaning
+                      </button>
+                      <p className="text-xs text-blue-600 mt-2">
+                        Available for next day booking
+                      </p>
+                    </div>
+                  </div>
+                )}
+
                 {/* Date Selection */}
                 <div className="mb-6">
                   <div className="flex items-center justify-between mb-4">
@@ -850,6 +917,7 @@ function QuickQuoteContent() {
                     </button>
                   </div>
                 </div>
+
 
                 <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
                   <button
