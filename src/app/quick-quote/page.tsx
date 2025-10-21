@@ -234,15 +234,15 @@ function QuickQuoteContent() {
       date.setDate(startOfWeek.getDate() + i);
       date.setHours(0, 0, 0, 0); // Reset time for comparison
       
-      // Only show dates that are at or after the minimum date
-      if (date >= minDate) {
-        weekDates.push({
-          day: dayNames[i],
-          date: date.getDate().toString(),
-          fullDate: date,
-          isToday: date.toDateString() === new Date().toDateString()
-        });
-      }
+      // Show all dates in the week, but disable past dates
+      const isAvailable = date >= minDate;
+      weekDates.push({
+        day: dayNames[i],
+        date: date.getDate().toString(),
+        fullDate: date,
+        isToday: date.toDateString() === new Date().toDateString(),
+        isAvailable: isAvailable
+      });
     }
     
     return weekDates;
@@ -744,24 +744,32 @@ function QuickQuoteContent() {
                     </button>
                   </div>
                   
-                  <div className="grid grid-cols-7 gap-2 mb-4">
+                  <div className="grid grid-cols-7 gap-1 sm:gap-2 mb-4">
                     {generateWeekDates().map((day, index) => (
                       <button
                         key={index}
-                        onClick={() => handleDateSelect(day.date)}
-                        className={`p-3 rounded-lg border-2 text-center transition-all relative cursor-pointer ${
-                          selectedDate === day.date
-                            ? 'border-blue-600 bg-blue-50 text-blue-600'
+                        onClick={() => day.isAvailable && handleDateSelect(day.date)}
+                        disabled={!day.isAvailable}
+                        className={`p-2 sm:p-3 rounded-lg border-2 text-center transition-all relative ${
+                          !day.isAvailable
+                            ? 'border-neutral-100 bg-neutral-50 text-neutral-300 cursor-not-allowed'
+                            : selectedDate === day.date
+                            ? 'border-blue-600 bg-blue-50 text-blue-600 cursor-pointer'
                             : day.isToday
-                            ? 'border-blue-300 bg-blue-25'
-                            : 'border-neutral-200 hover:border-neutral-300'
+                            ? 'border-blue-300 bg-blue-25 cursor-pointer'
+                            : 'border-neutral-200 hover:border-neutral-300 cursor-pointer'
                         }`}
                       >
                         <div className="text-xs text-neutral-500">{day.day}</div>
-                        <div className="text-lg font-semibold">{day.date}</div>
-                        {day.isToday && (
+                        <div className="text-sm sm:text-lg font-semibold">{day.date}</div>
+                        {day.isToday && day.isAvailable && (
                           <div className="absolute -top-1 -right-1 bg-blue-100 text-blue-800 text-xs px-1 py-0.5 rounded text-[10px]">
                             Today
+                          </div>
+                        )}
+                        {!day.isAvailable && (
+                          <div className="absolute -top-1 -right-1 bg-neutral-100 text-neutral-500 text-xs px-1 py-0.5 rounded text-[10px]">
+                            Unavailable
                           </div>
                         )}
                       </button>
