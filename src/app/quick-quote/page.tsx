@@ -227,102 +227,70 @@ function QuickQuoteContent() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Build comprehensive email body
-    let emailBody = `QUICK QUOTE REQUEST SUMMARY%0A`;
-    emailBody += `================================%0A%0A`;
+    // Build email body with proper encoding
+    let emailBody = `QUICK QUOTE REQUEST\n`;
+    emailBody += `==================\n\n`;
     
-    emailBody += `SERVICE DETAILS:%0A`;
-    emailBody += `Service: ${selectedService || 'Not specified'}%0A`;
-    emailBody += `Duration: ${selectedDuration} hours%0A`;
-    emailBody += `Hourly Rate: £${hourlyRate}/hour%0A`;
+    emailBody += `SERVICE DETAILS:\n`;
+    emailBody += `Service: ${selectedService || 'Not specified'}\n`;
+    emailBody += `Duration: ${selectedDuration} hours\n`;
+    emailBody += `Hourly Rate: £${hourlyRate}/hour\n\n`;
     
     // Service-specific details
     if (selectedService === "Office/Commercial Cleaning") {
-      emailBody += `Floors: ${floors}%0A`;
-      emailBody += `Frequency: ${commercialFrequency || 'Not specified'}%0A`;
+      emailBody += `Floors: ${floors}\n`;
+      emailBody += `Frequency: ${commercialFrequency || 'Not specified'}\n\n`;
     } else if (selectedService && selectedService !== "Other") {
-      emailBody += `Property Type: ${propertyType}%0A`;
-      emailBody += `Bedrooms: ${bedrooms === 0 ? 'Studio' : bedrooms}%0A`;
-      emailBody += `Bathrooms: ${bathrooms}%0A`;
+      emailBody += `Property Type: ${propertyType}\n`;
+      emailBody += `Bedrooms: ${bedrooms === 0 ? 'Studio' : bedrooms}\n`;
+      emailBody += `Bathrooms: ${bathrooms}\n\n`;
     }
     
     // Products and extras
-    emailBody += `%0APRODUCTS & EXTRAS:%0A`;
-    emailBody += `Products: ${selectedProducts}%0A`;
+    emailBody += `PRODUCTS & EXTRAS:\n`;
+    emailBody += `Products: ${selectedProducts}\n`;
     if (extraTasks.length > 0) {
       const extraTaskNames = extraTasks.map(id => extraTaskOptions.find(task => task.id === id)?.name).join(', ');
-      emailBody += `Extra Tasks: ${extraTaskNames}%0A`;
+      emailBody += `Extra Tasks: ${extraTaskNames}\n\n`;
     } else {
-      emailBody += `Extra Tasks: None%0A`;
+      emailBody += `Extra Tasks: None\n\n`;
     }
     
     // Scheduling details
-    emailBody += `%0ASCHEDULING:%0A`;
-    emailBody += `Selected Date: ${selectedDate}%0A`;
-    emailBody += `Time Slot: ${selectedTimeSlot || 'Not selected'}%0A`;
-    emailBody += `Frequency: ${selectedService === "Office/Commercial Cleaning" ? commercialFrequency : selectedFrequency}%0A`;
-    emailBody += `Current Date Context: ${currentDate.toLocaleDateString()}%0A`;
-    
-    // Detailed timing information
-    if (selectedTimeSlot) {
-      emailBody += `Detailed Time: `;
-      switch(selectedTimeSlot) {
-        case 'daytime':
-          emailBody += `Daytime (09:00 - 17:00)`;
-          break;
-        case 'morning-1':
-          emailBody += `Morning (09:00 - 12:00)`;
-          break;
-        case 'morning-2':
-          emailBody += `Morning (11:00 - 12:00)`;
-          break;
-        case 'afternoon-1':
-          emailBody += `Afternoon (12:00 - 17:00)`;
-          break;
-        case 'afternoon-2':
-          emailBody += `Afternoon (12:00 - 13:00)`;
-          break;
-        case 'afternoon-3':
-          emailBody += `Afternoon (17:00 - 18:00)`;
-          break;
-        default:
-          emailBody += selectedTimeSlot;
-      }
-      emailBody += `%0A`;
-    }
+    emailBody += `SCHEDULING:\n`;
+    emailBody += `Selected Date: ${selectedDate}\n`;
+    emailBody += `Time Slot: ${selectedTimeSlot || 'Not selected'}\n`;
+    emailBody += `Frequency: ${selectedService === "Office/Commercial Cleaning" ? commercialFrequency : selectedFrequency}\n\n`;
     
     // Location
-    emailBody += `%0ALOCATION:%0A`;
     const finalPostcode = postcode || customerDetails.postcode || 'Not provided';
-    emailBody += `Postcode: ${finalPostcode}%0A`;
+    emailBody += `LOCATION:\n`;
+    emailBody += `Postcode: ${finalPostcode}\n\n`;
     
     // Price breakdown
-    emailBody += `%0APRICE BREAKDOWN:%0A`;
-    emailBody += `Base cleaning (${selectedDuration}h × £${hourlyRate}/hr): £${basePrice}%0A`;
+    emailBody += `PRICE BREAKDOWN:\n`;
+    emailBody += `Base cleaning (${selectedDuration}h × £${hourlyRate}/hr): £${basePrice}\n`;
     if (productPrice > 0) {
-      emailBody += `Cleaning products: £${productPrice}%0A`;
+      emailBody += `Cleaning products: £${productPrice}\n`;
     }
     if (extraTaskPrice > 0) {
-      emailBody += `Extra tasks (${extraTasks.length} × £5): £${extraTaskPrice}%0A`;
+      emailBody += `Extra tasks (${extraTasks.length} × £5): £${extraTaskPrice}\n`;
     }
-    emailBody += `TOTAL: £${finalPrice}%0A`;
+    emailBody += `TOTAL: £${finalPrice}\n\n`;
     
     // Customer details
-    emailBody += `%0ACUSTOMER DETAILS:%0A`;
-    emailBody += `Name: ${customerDetails.name || 'Not provided'}%0A`;
-    emailBody += `Email: ${customerDetails.email || 'Not provided'}%0A`;
-    emailBody += `Phone: ${customerDetails.phone || 'Not provided'}%0A`;
-    emailBody += `Customer Postcode: ${customerDetails.postcode || 'Not provided'}%0A`;
+    emailBody += `CUSTOMER DETAILS:\n`;
+    emailBody += `Name: ${customerDetails.name || 'Not provided'}\n`;
+    emailBody += `Email: ${customerDetails.email || 'Not provided'}\n`;
+    emailBody += `Phone: ${customerDetails.phone || 'Not provided'}\n`;
+    emailBody += `Customer Postcode: ${customerDetails.postcode || 'Not provided'}\n`;
     if (customerDetails.message) {
-      emailBody += `Additional Message: ${customerDetails.message}%0A`;
+      emailBody += `Additional Message: ${customerDetails.message}\n`;
     }
     
-    // Quote metadata
-    emailBody += `%0AQUOTE METADATA:%0A`;
-    emailBody += `Quote Generated: ${new Date().toLocaleString()}%0A`;
-    emailBody += `Quote ID: ${Date.now()}%0A`;
-    
-    const mailtoLink = `mailto:luxegleam.uk@gmail.com?subject=Quick Quote Request - ${selectedService || 'Cleaning Service'}&body=${emailBody}`;
+    // Encode the email body properly
+    const encodedBody = encodeURIComponent(emailBody);
+    const mailtoLink = `mailto:luxegleam.uk@gmail.com?subject=Quick Quote Request - ${selectedService || 'Cleaning Service'}&body=${encodedBody}`;
     window.location.href = mailtoLink;
   };
   
