@@ -139,6 +139,13 @@ function QuickQuoteContent() {
     }
   }, [searchParams]);
 
+  // Sync postcode between form and customer details
+  useEffect(() => {
+    if (postcode && postcode !== customerDetails.postcode) {
+      setCustomerDetails(prev => ({ ...prev, postcode: postcode }));
+    }
+  }, [postcode, customerDetails.postcode]);
+
   // Auto-select appropriate date based on service type
   useEffect(() => {
     if (selectedService === "Last Minute Cleaning") {
@@ -221,7 +228,10 @@ function QuickQuoteContent() {
     e.preventDefault();
     
     // Build comprehensive email body
-    let emailBody = `SERVICE DETAILS:%0A`;
+    let emailBody = `QUICK QUOTE REQUEST SUMMARY%0A`;
+    emailBody += `================================%0A%0A`;
+    
+    emailBody += `SERVICE DETAILS:%0A`;
     emailBody += `Service: ${selectedService || 'Not specified'}%0A`;
     emailBody += `Duration: ${selectedDuration} hours%0A`;
     emailBody += `Hourly Rate: £${hourlyRate}/hour%0A`;
@@ -253,9 +263,38 @@ function QuickQuoteContent() {
     emailBody += `Frequency: ${selectedService === "Office/Commercial Cleaning" ? commercialFrequency : selectedFrequency}%0A`;
     emailBody += `Current Date Context: ${currentDate.toLocaleDateString()}%0A`;
     
+    // Detailed timing information
+    if (selectedTimeSlot) {
+      emailBody += `Detailed Time: `;
+      switch(selectedTimeSlot) {
+        case 'daytime':
+          emailBody += `Daytime (09:00 - 17:00)`;
+          break;
+        case 'morning-1':
+          emailBody += `Morning (09:00 - 12:00)`;
+          break;
+        case 'morning-2':
+          emailBody += `Morning (11:00 - 12:00)`;
+          break;
+        case 'afternoon-1':
+          emailBody += `Afternoon (12:00 - 17:00)`;
+          break;
+        case 'afternoon-2':
+          emailBody += `Afternoon (12:00 - 13:00)`;
+          break;
+        case 'afternoon-3':
+          emailBody += `Afternoon (17:00 - 18:00)`;
+          break;
+        default:
+          emailBody += selectedTimeSlot;
+      }
+      emailBody += `%0A`;
+    }
+    
     // Location
     emailBody += `%0ALOCATION:%0A`;
-    emailBody += `Postcode: ${postcode || customerDetails.postcode || 'Not provided'}%0A`;
+    const finalPostcode = postcode || customerDetails.postcode || 'Not provided';
+    emailBody += `Postcode: ${finalPostcode}%0A`;
     
     // Price breakdown
     emailBody += `%0APRICE BREAKDOWN:%0A`;
@@ -270,11 +309,12 @@ function QuickQuoteContent() {
     
     // Customer details
     emailBody += `%0ACUSTOMER DETAILS:%0A`;
-    emailBody += `Name: ${customerDetails.name}%0A`;
-    emailBody += `Email: ${customerDetails.email}%0A`;
-    emailBody += `Phone: ${customerDetails.phone}%0A`;
+    emailBody += `Name: ${customerDetails.name || 'Not provided'}%0A`;
+    emailBody += `Email: ${customerDetails.email || 'Not provided'}%0A`;
+    emailBody += `Phone: ${customerDetails.phone || 'Not provided'}%0A`;
+    emailBody += `Customer Postcode: ${customerDetails.postcode || 'Not provided'}%0A`;
     if (customerDetails.message) {
-      emailBody += `Message: ${customerDetails.message}%0A`;
+      emailBody += `Additional Message: ${customerDetails.message}%0A`;
     }
     
     // Quote metadata
