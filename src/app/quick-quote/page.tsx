@@ -167,12 +167,16 @@ function QuickQuoteContent() {
   const handleNext = () => {
     if (currentStep < 4) {
       setCurrentStep(currentStep + 1);
+      // Auto scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
   
   const handleBack = () => {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
+      // Auto scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
   
